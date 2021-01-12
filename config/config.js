@@ -14,5 +14,6 @@ module.exports = {
   port: process.env.PORT,
   host: process.env.HOST,
   dbPath: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-  dbConfig: dbConfig
+  dbConfig: dbConfig,
+  sessionSecret: process.env.SESSION_SECRET
 }

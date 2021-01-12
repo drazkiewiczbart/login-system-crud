@@ -1,10 +1,19 @@
-const path = require('path');
-const { port, host, dbPath, dbConfig } = require('./config');
+const { port, host, dbPath, dbConfig, sessionSecret } = require('./config');
+const session = require('express-session');
 const mongoose = require('mongoose');
+const mongoStore = require('connect-mongo')(session);
 const express = require('express');
 const app = express();
 
 // App
+app.use(express.urlencoded({ extended: false }));
+// TODO: jakie jeszcze opcje są tutaj moliwe do ustawienia
+app.use(session({
+  secret: sessionSecret,
+  store: new mongoStore({ mongooseConnection: mongoose.connection })
+}))
+
+app.use(require('../routers/registry'));
 
 
 // Database and server
