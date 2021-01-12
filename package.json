@@ -1,0 +1,17 @@
+{
+  "name": "login-system",
+  "version": "1.0.0",
+  "description": "Login system with user data operations.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "login",
+    "system",
+    "crud",
+    "data"
+  ],
+  "author": "Bartłomiej Drążkiewicz",
+  "license": "MIT"
+}
