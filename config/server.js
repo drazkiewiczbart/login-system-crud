@@ -2,14 +2,24 @@ const { port, host, dbPath, dbConfig, sessionSecret } = require('./config');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const mongoStore = require('connect-mongo')(session);
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 
 // App
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-// TODO: jakie jeszcze opcje są tutaj moliwe do ustawienia
 app.use(session({
+  name: 'session',
   secret: sessionSecret,
+  saveUninitialized: true,
+  resave: true,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    path: '/',
+    expires: new Date(Date.now() + 60 * 60 * 1000 * 24 * 1)
+  },
   store: new mongoStore({ mongooseConnection: mongoose.connection })
 }))
 
