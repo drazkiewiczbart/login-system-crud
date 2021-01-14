@@ -7,7 +7,7 @@ module.exports = function(passport, LocalStrategy, mongoose) {
 
   passport.deserializeUser((_id, done) => {
     user.findById(_id, (err, user) => {
-      return done(err, user);
+      return done(err, user._id);
     })
   });
 

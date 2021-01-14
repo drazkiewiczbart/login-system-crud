@@ -45,6 +45,7 @@ require('../libs/local-authentication')(passport, LocalStrategy, mongoose);
 // Routers
 require('../routers/registry-router')(app);
 require('../routers/login-router')(app, passport);
+require('../routers/profile-router')(app);
 
 //
 // DATABASE AND SERVER
