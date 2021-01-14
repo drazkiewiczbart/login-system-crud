@@ -1,14 +1,30 @@
+//
+// MODULES
+//
+// Variable
 const { port, host, dbPath, dbConfig, sessionSecret } = require('./config');
+// Session and parsers
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+// Database
 const mongoose = require('mongoose');
 const mongoStore = require('connect-mongo')(session);
-const cookieParser = require('cookie-parser');
+require('../models/user-model')(mongoose);
+// Authentication
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+// Express
 const express = require('express');
 const app = express();
 
-// App
+//
+// APP
+//
+// Settings
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ 
+  extended: false
+}));
 app.use(session({
   name: 'session',
   secret: sessionSecret,
@@ -21,12 +37,19 @@ app.use(session({
     expires: new Date(Date.now() + 60 * 60 * 1000 * 24 * 1)
   },
   store: new mongoStore({ mongooseConnection: mongoose.connection })
-}))
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+require('../libs/local-authentication')(passport, LocalStrategy, mongoose);
 
-app.use(require('../routers/registry'));
+// Routers
+require('../routers/registry-router')(app);
+require('../routers/login-router')(app, passport);
 
-
-// Database and server
+//
+// DATABASE AND SERVER
+//
+// Start and settings
 mongoose.connect(dbPath, dbConfig)
 .then((response) => {
   console.log(`Database connected to ${response.connection.host}`);
@@ -42,3 +65,6 @@ mongoose.connect(dbPath, dbConfig)
   console.log('Database has problem with connection. Node server is down.')
   console.log(error);
 });
+
+const db = mongoose.connection;
+// TODO: add events handlers 'error' etc.

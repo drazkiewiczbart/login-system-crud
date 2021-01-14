@@ -10,10 +10,12 @@ const dbConfig = {
   useUnifiedTopology: true
 }
 
+const dbPath = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
 module.exports = {
   port: process.env.PORT,
   host: process.env.HOST,
-  dbPath: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-  dbConfig: dbConfig,
+  dbPath,
+  dbConfig,
   sessionSecret: process.env.SESSION_SECRET
 }
