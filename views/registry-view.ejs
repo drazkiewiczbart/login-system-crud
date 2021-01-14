@@ -1,0 +1,50 @@
+<%- include ("templates/header.ejs") %>
+<div class="container h-100 d-flex justify-content-center align-items-center">
+  <div class="col col-sm-10 col-md-9 col-lg-8">
+    <div class="row text-center">
+      <h1 class="admission__title">Join us</h1>
+      <h2 class="admission__subtitle">Registry new user account</h2>
+    </div>
+    <form action="/registry" method="post">
+      <div class="row row-cols-2">
+        <div class="col-12 col-sm-6">
+          <div class="form-group form__single">
+            <label class="form__label">Email address</label>
+            <input type="text" class="form-control form__input--fill" name="email" value="your@email.com" autofocus>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group form__single">
+            <label class="form__label">Confirm email address</label>
+            <input type="text" class="form-control form__input--fill" name="confirm-email" value="your@email.com">
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group form__single">
+            <label class="form__label">Password</label>
+            <input type="password" class="form-control form__input--fill" name="password" value="S3cr3tP4ssW0rD">
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="form-group form__single">
+            <label class="form__label">Confirm password</label>
+            <input type="password" class="form-control form__input--fill" name="confirm-password" value="S3cr3tP4ssW0rD">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <button type="submit" class="btn btn-lg btn--fill btn--space">Registry</button>
+        </div>
+      </div>
+    </form>
+    <div class="row login-information">
+      <div class="col">
+        <p class="login-information__text">If you have a account, 
+          <a class="login-information__link" href="/login">Log in</a>
+        !</p>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include ("templates/footer.ejs") %>

@@ -3,7 +3,7 @@ const { getController, postController } = require('../controllers/login-controll
 module.exports = function(app, passport) {
   app.get('/login', getController);
   app.post('/login', passport.authenticate('local-authentication', {
-    successRedirect: '/login',
-    failureRedirect: '/registry'
+    successRedirect: '/profile',
+    failureRedirect: '/login'
   }));
 }

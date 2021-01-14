@@ -13,6 +13,8 @@ require('../models/user-model')(mongoose);
 // Authentication
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+// Path
+const path = require('path');
 // Express
 const express = require('express');
 const app = express();
@@ -20,7 +22,10 @@ const app = express();
 //
 // APP
 //
-// Settings
+//Settings
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'ejs');
+// Use
 app.use(cookieParser());
 app.use(express.urlencoded({ 
   extended: false
@@ -41,11 +46,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 require('../libs/local-authentication')(passport, LocalStrategy, mongoose);
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Routers
 require('../routers/registry-router')(app);
 require('../routers/login-router')(app, passport);
 require('../routers/profile-router')(app);
+require('../routers/logout-router')(app);
 
 //
 // DATABASE AND SERVER

@@ -1,0 +1,84 @@
+body {
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: #1e1e2f;
+  color: #ffffff;
+}
+
+body, h1, .login-information__text {
+  margin: 0;
+}
+
+body, h1, h2, form {
+  padding: 0;
+}
+
+form {
+  margin: 60px 0;
+}
+
+.admission__title {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.admission__subtitle {
+  margin-top: 10px;
+  font-size: 1.5rem;
+}
+
+.form__single {
+  margin: 10px 0;
+}
+
+.form__label {
+  margin-bottom: 5px;
+  font-size: .75rem;
+}
+
+.form__input--fill {
+  color: #3f3f3f;
+}
+
+.form__input--fill, .form__input--fill:focus {
+  background-color: transparent;
+  border: 1px solid #00CDAC;
+}
+
+.form__input--fill:focus {
+  color: #ffffff;
+}
+
+.btn--fill { 
+  background-color: #00CDAC;
+  border: none;
+  color: #ffffff;
+}
+
+.btn--fill:hover {
+  color: #1e1e2f;
+}
+
+.btn--space {
+  margin-top: 30px;
+}
+
+.login-information {
+  margin-top: 100px;
+  padding-top: 20px;
+  text-align: center;
+  border-top: 1px solid #00CDAC;
+}
+
+.login-information__link {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #00CDAC;
+}
+
+.login-information__link:hover {
+  font-weight: 700;
+  color: #00CDAC;
+}

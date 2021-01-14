@@ -4,8 +4,7 @@ const bcrypt = require('bcrypt');
 const moment = require('moment');
 
 const getController = (req, res) => {
-  console.log(req.session);
-  res.status(200).send('Get registry');
+  res.render('registry-view');
 }
 
 const postController = (req, res) => {
