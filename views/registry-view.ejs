@@ -1,50 +1,43 @@
 <%- include ("templates/header.ejs") %>
-<div class="container h-100 d-flex justify-content-center align-items-center">
-  <div class="col col-sm-10 col-md-9 col-lg-8">
-    <div class="row text-center">
-      <h1 class="admission__title">Join us</h1>
-      <h2 class="admission__subtitle">Registry new user account</h2>
-    </div>
-    <form action="/registry" method="post">
-      <div class="row row-cols-2">
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input id="email" type="text" class="form-control" name="email" placeholder="your@email.com" autofocus>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="confirm-email">Confirm email address</label>
-            <input id="confirm-email" type="text" class="form-control" name="confirm-email" placeholder="your@email.com">
-          </div>
-        </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" type="password" class="form-control" name="password" placeholder="S3cr3tP4ssW0rD">
-          </div>
-        </div>
-        <div class="col-12 col-sm-6">
-          <div class="form-group">
-            <label for="confirm-password">Confirm password</label>
-            <input id="confirm-password" type="password" class="form-control" name="confirm-password" placeholder="S3cr3tP4ssW0rD">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col text-center">
-          <button type="submit" class="btn btn-lg">Registry</button>
-        </div>
-      </div>
-    </form>
-    <div class="row text-center login-information">
-      <div class="col">
-        <p class="login-information__text">If you have a account, 
-          <a class="login-information__link" href="/login">Log in</a>
-        !</p>
-      </div>
+<div class="container h-100 d-flex flex-column justify-content-center">
+  <div class="row justify-content-center">
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 text-center">
+      <h1 class="header-title">Join us</h1>
+      <h2 class="header-subtitle">Registry new user account</h2>
     </div>
   </div>
+  <div class="row justify-content-center">
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+      <form class="form" action="/registry" method="post">
+        <label class="form-label" for="email">Email address</label>
+        <input id="email" type="text" class="form-control form-input" name="email" placeholder="your@email.com" autofocus>
+
+        <label class="form-label" for="confirm-email">Confirm email address</label>
+        <input id="confirm-email" type="text" class="form-control form-input" name="confirmEmail" placeholder="your@email.com">
+
+        <label class="form-label" for="password">Password</label>
+        <input id="password" type="password" class="form-control form-input" name="password" placeholder="S3cr3tP4ssW0rD">
+
+        <label class="form-label" for="confirm-password">Confirm password</label>
+        <input id="confirm-password" type="password" class="form-control form-input" name="confirmPassword" placeholder="S3cr3tP4ssW0rD">
+        
+        <% if (error) { %>
+          <div class="text-center form-validator-wrapper form-validator-error">
+            <p class="form-validator-text"><%= error %></p>
+        </div>
+        <% } %>
+        <div class="text-center">
+          <button id="btn" type="submit" class="btn btn-lg btn-look" disabled="true">Registry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row justify-content-center text-center">
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+      <p class="login-information-text">If you have account, 
+        <a class="login-information-link" href="/login">Login</a>!</p>
+  </div>
+  </div>
 </div>
+<script src="/javascripts/registry-button-state.js"></script>
 <%- include ("templates/footer.ejs") %>

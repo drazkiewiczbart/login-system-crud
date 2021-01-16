@@ -1,6 +1,9 @@
-//
-// MODULES
-//
+'use strict'
+
+/*
+* MODULES
+*/
+
 // Variable
 const { port, host, dbPath, dbConfig, sessionSecret } = require('./config');
 // Session and parsers
@@ -12,16 +15,19 @@ const mongoStore = require('connect-mongo')(session);
 require('../models/user-model')(mongoose);
 // Authentication
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const localStrategy = require('passport-local').Strategy;
 // Path
 const path = require('path');
+// Flash
+const flash = require('connect-flash');
 // Express
 const express = require('express');
 const app = express();
 
-//
-// APP
-//
+/*
+* APP
+*/
+
 //Settings
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
@@ -43,9 +49,10 @@ app.use(session({
   },
   store: new mongoStore({ mongooseConnection: mongoose.connection })
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-require('../libs/local-authentication')(passport, LocalStrategy, mongoose);
+require('./local-authentication')(passport, localStrategy, mongoose);
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Routers
@@ -54,9 +61,10 @@ require('../routers/login-router')(app, passport);
 require('../routers/profile-router')(app);
 require('../routers/logout-router')(app);
 
-//
-// DATABASE AND SERVER
-//
+/*
+* DATABASE AND SERVER
+*/
+
 // Start and settings
 mongoose.connect(dbPath, dbConfig)
 .then((response) => {

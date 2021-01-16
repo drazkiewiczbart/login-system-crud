@@ -1,6 +1,8 @@
-const isLoginController = require('../controllers/is-login-controller.js');
-const getController = require('../controllers/profile-controller');
+'use strict'
 
-module.exports = function(app) {
+const isLoginController = require('../controllers/is-login-controller');
+const { getController } = require('../controllers/profile-controller');
+
+module.exports = app => {
   app.get('/profile', isLoginController, getController);
 }

@@ -1,6 +1,8 @@
-const isLoginController = require('../controllers/is-login-controller.js');
+'use strict'
+
+const isLoginController = require('../controllers/is-login-controller');
 const logoutController = require('../controllers/logout-controller');
 
-module.exports = function(app) {
+module.exports = app => {
   app.get('/logout', isLoginController, logoutController);
 }

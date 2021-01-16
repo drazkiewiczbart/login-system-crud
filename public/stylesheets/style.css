@@ -1,78 +1,92 @@
+html {
+  font-size: 10px;
+}
+
 body {
   height: 100vh;
+  margin: 0;
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
-  font-size: 16px;
   background-color: #1e1e2f;
   color: #ffffff;
 }
 
-body, h1, .login-information__text {
+.header-title {
   margin: 0;
+  font-size: 6rem;
+  font-weight: 700;
 }
 
-body, h1, h2, form {
-  padding: 0;
+.header-subtitle {
+  margin: 1rem 0 0 0;
+  font-size: 2.5rem;
 }
 
-form {
+.form {
+  margin: 6rem 0 4rem 0;
+}
+
+.form-label {
+  margin: 0 0 1rem 0;
+  font-size: 1.4rem;
+}
+
+.form-input, .form-input:focus {
+  margin: 0 0 2rem 0;
+  background-color: transparent;
+  border: .1rem solid #00CDAC;
   color: #ffffff;
-  margin: 60px 0;
+  font-size: 1.6rem;
 }
 
-input::placeholder {
+.form-input::placeholder {
   color: #3f3f3f;
 }
 
-input[type=text], input[type=password], input[type=text]:focus, input[type=password]:focus {
-  background-color: transparent;
-  border: 1px solid #00CDAC;
-  color: #ffffff;
+.form-validator-wrapper {
+  margin: 4rem 0 2rem 0;
+  padding: .375rem .75rem;
+  border-radius: .25rem;
+  font-size: 1.6rem;
 }
 
-label[for=email], label[for="password"], label[for=confirm-email], label[for=confirm-password] {
-  margin-bottom: 5px;
-  font-size: .75rem;
+.form-validator-error {
+  border: .1rem solid #cd0000;
 }
 
-.admission__title {
-  font-size: 3.5rem;
-  font-weight: 700;
+.form-validator-success {
+  border: .1rem solid #00CDAC;
 }
 
-.admission__subtitle {
-  margin-top: 10px;
-  font-size: 1.5rem;
+.form-validator-text {
+  margin: 0;
 }
 
-.form-group {
-  margin: 10px 0;
-}
-
-.btn {
-  margin-top: 30px;
+.btn-look {
+  margin: 2rem 0 0 0;
   background-color: #00CDAC;
   border: none;
   color: #ffffff;
+  font-size: 2rem;
 }
 
-.btn:hover {
+.btn-look:hover {
   color: #1e1e2f;
 }
 
-.login-information {
-  margin-top: 100px;
-  padding-top: 20px;
-  border-top: 1px solid #00CDAC;
+.login-information-text {
+  padding: 2rem 0 0 0;
+  font-size: 1.6rem;
+  border-top: .1rem solid #00CDAC;
 }
 
-.login-information__link {
+.login-information-link {
   text-transform: uppercase;
   text-decoration: none;
-  color: #00CDAC;
+  color: #ffffff;
+  font-weight: 700;
 }
 
-.login-information__link:hover {
-  font-weight: 700;
+.login-information-link:hover {
   color: #00CDAC;
 }

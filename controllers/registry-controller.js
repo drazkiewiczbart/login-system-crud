@@ -1,32 +1,71 @@
+'use strict'
+
 const mongoose = require('mongoose');
 const user = mongoose.model('users');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
+/*
+* Get controller
+*/
 const getController = (req, res) => {
-  res.render('registry-view');
+  res.render('registry-view', {
+    error: req.flash('error').toString()
+  });
 }
-
+/*
+* Post controller
+*/
 const postController = (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const hashPassword = bcrypt.hashSync(password, 10);
+  const time = moment();
+
   const newUser = new user({
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10),
+    email: email,
+    password: hashPassword,
     accountDetails: {
-      createdAt: moment()
+      createdAt: time
     }
   });
+
   newUser.save((err, user) => {
     if(err) {
-      res.status(500).send(`User not added. ${err}`);
+      req.flash('error', 'Sorry, we can\'t create your account. Please try again later.');
+      res.redirect('/registry');
     } else {
-      res.status(200).send(`User added success. ${user}`);
+      req.flash('success', 'Your account is ready to use, please login.');
+      res.redirect('/login');
     }
   });
 }
 
-const postControllerValidation = (req, res, next) => {
-  if(!req.body.email || !req.body.password) {
-    res.status(400).send('Need email and password');
+/*
+* Data validation for post controller
+*/
+const formDataValidation = (req, res, next) => {
+  const email = req.body.email;
+  const confirmEmail = req.body.confirmEmail;
+  const emailRegex = /\w+@{1}\w+.{1}\w+/;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+
+  if(!email || !confirmEmail || !password || !confirmPassword) {
+    req.flash('error', 'To create account you need set email address, password and confirm this data.');
+    res.redirect('/registry');
+  } else if (email !== confirmEmail) {
+    req.flash('error', 'Email address are not identical.');
+    res.redirect('/registry');
+  } else if (password !== confirmPassword) {
+    req.flash('error', 'Passwords are not identical.');
+    res.redirect('/registry');
+  } else if (!emailRegex.test(email)) {
+    req.flash('error', 'Incorrect email address.');
+    res.redirect('/registry');
+  } else if (password.length < 10) {
+    req.flash('error', 'Password must contain ten or more characters.');
+    res.redirect('/registry');
   } else {
     next();
   }
@@ -35,5 +74,5 @@ const postControllerValidation = (req, res, next) => {
 module.exports = {
   getController,
   postController,
-  postControllerValidation
+  formDataValidation
 }
