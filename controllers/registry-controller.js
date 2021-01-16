@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const user = mongoose.model('users');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
+const { isEmailBurner } = require('burner-email-providers');
 
 /*
 * Get controller
@@ -65,6 +66,9 @@ const formDataValidation = (req, res, next) => {
     res.redirect('/registry');
   } else if (password.length < 10) {
     req.flash('error', 'Password must contain ten or more characters.');
+    res.redirect('/registry');
+  } else if(isEmailBurner(email)) {
+    req.flash('error', 'Untrusted provider, please use different email address.');
     res.redirect('/registry');
   } else {
     next();
