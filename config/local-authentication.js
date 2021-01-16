@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 * Validation password function
 */
 const passwordValidation = (user, password) => {
-  bcrypt.compare(password, user.passport, (err, result) => {
+  bcrypt.compare(password, user.password, (err, result) => {
     if(err) { return false };
     return result;
   })
@@ -31,7 +31,7 @@ module.exports = function(passport, LocalStrategy, mongoose) {
     passwordField: 'password'
   },
     function(email, password, done) {
-      user.findOne({ email: email }, (err, user) => {
+      user.findOne({ emailAddress: email }, (err, user) => {
         if(err) { return done(err); }
         if(!user) { return done(null, false); }
         if(passwordValidation(user, password)) { return done(null, false,); }

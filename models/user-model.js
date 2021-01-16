@@ -1,11 +1,16 @@
 module.exports = function(mongoose) {
   const userSchema = new mongoose.Schema(
     {
-      email: { type: 'string', required: true },
+      emailAddress: { type: 'string', required: true },
       password: { type: 'string', required: true },
       userDetails: {
         firstName: { type: 'string', default: null },
-        lastName: { type: 'string', default: null }
+        lastName: { type: 'string', default: null },
+        address: { type: 'string', default: null },
+        city: { type: 'string', default: null },
+        country: { type: 'string', default: null },
+        postalCode: { type: 'string', default: null },
+        aboutMe: { type: 'string', default: null }
       },
       accountDetails: {
         createdAt: { type: Date, default: null, required: true },

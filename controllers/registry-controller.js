@@ -24,7 +24,7 @@ const postController = (req, res) => {
   const time = moment();
 
   const newUser = new user({
-    email: email,
+    emailAddress: email,
     password: hashPassword,
     accountDetails: {
       createdAt: time
@@ -69,6 +69,9 @@ const formDataValidation = (req, res, next) => {
     res.redirect('/registry');
   } else if(isEmailBurner(email)) {
     req.flash('error', 'Untrusted provider, please use different email address.');
+    res.redirect('/registry');
+  } else if(user.findOne({ emailAddress: email })) {
+    req.flash('error', 'This email address is already used.');
     res.redirect('/registry');
   } else {
     next();
