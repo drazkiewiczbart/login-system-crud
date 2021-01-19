@@ -1,9 +1,5 @@
 'use strict'
 
-/*
-* MODULES
-*/
-
 // Variable
 const { port, host, dbPath, dbConfig, sessionSecret } = require('./config');
 // Session and parsers
@@ -24,14 +20,10 @@ const flash = require('connect-flash');
 const express = require('express');
 const app = express();
 
-/*
-* APP
-*/
-
-//Settings
+// App settings
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
-// Use
+// App Use
 app.use(cookieParser());
 app.use(express.urlencoded({ 
   extended: false
@@ -57,14 +49,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Routers
 require('../routers/registry-router')(app);
-require('../routers/login-router')(app, passport);
+require('../routers/index-router')(app, passport);
 require('../routers/profile-router')(app);
 require('../routers/logout-router')(app);
 
-/*
-* DATABASE AND SERVER
-*/
-
+// Database and server
 // Start and settings
 mongoose.connect(dbPath, dbConfig)
 .then((response) => {
@@ -74,11 +63,11 @@ mongoose.connect(dbPath, dbConfig)
       console.log(`Node server is running on ${host}:${port}`);
     });
   } catch(error) {
-    console.log('Node server has a problem.');
+    console.log('Node server has a problem');
     console.log(error);
   }
 }).catch((error) => {
-  console.log('Database has problem with connection. Node server is down.')
+  console.log('Database has problem with connection. Node server is down')
   console.log(error);
 });
 

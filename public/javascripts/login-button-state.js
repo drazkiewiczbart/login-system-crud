@@ -1,7 +1,7 @@
 'use strict'
 
-const email = document.querySelector('#email');
-const password = document.querySelector('#password');
+const email = document.querySelector('#email-field');
+const password = document.querySelector('#password-field');
 const allInputFields = [email, password];
 const btn = document.querySelector('#btn');
 

@@ -1,0 +1,42 @@
+<%- include ("templates/header.ejs") %>
+  <div class="d-flex align-items-center min-vh-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-5 col-xxl-5 p-5 registry-login">
+          <form action="/" method="POST" class="mb-5">
+            <div class="mb-5 text-center">
+              <h3 class="registry-login__title">Hello</h3>
+              <h5 class="registry-login__subtitle">Login to account and discover what there waiting on you</h5>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" name="email" id="email-field" class="form-control form-control-lg shadow-none" placeholder="Enter email address">
+              <label for="emailField" class="form-label">Email Address</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" name="password" id="password-field" class="form-control form-control-lg shadow-none" placeholder="Enter password">
+              <label for="password-field" class="form-label">Password</label>
+            </div>
+            <% if(error || success) { %>
+              <div class="mt-1 mb-2 text-center flash-message">
+                <% if(error) { %>
+                  <p class="p-3 flash-message__error"> <%= error %></p>
+                <% } %>
+                <% if(success) { %>
+                  <p class="p-3 flash-message__success"> <%= success %></p>
+                <% } %>
+              </div>
+            <% } %>
+            <div class="d-flex justify-content-center mt-4">
+              <button type="submit" disabled="true" id="btn" class="btn">LOGIN</button>
+            </div>
+          </form>
+          <div class="d-grid text-center">
+            <p>If you dont have account, you can create one!<br><a href="/registry" class="registry-login__link">Click here</a> and registry account</p>
+          </div>
+        </div>
+        <%- include ("templates/about-project.ejs") %>
+      </div>
+    </div>
+  </div>
+  <script src="/javascripts/login-button-state.js"></script>
+<%- include ("templates/footer.ejs") %>

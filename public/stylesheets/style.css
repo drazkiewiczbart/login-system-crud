@@ -1,92 +1,78 @@
-html {
-  font-size: 10px;
-}
-
 body {
-  height: 100vh;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: .875rem;
   font-weight: 300;
-  background-color: #1e1e2f;
-  color: #ffffff;
+  color: #1d1d1f;
 }
 
-.header-title {
-  margin: 0;
-  font-size: 6rem;
+.information {
+  
+}
+
+.information__paragraph {
+  border-top: 1px solid #a5a5a5;
+  font-size: .8rem;
+  text-align: justify;
+  color:#a5a5a5;
+}
+
+.registry-login {
+  border-radius: .5rem;
+}
+
+.registry-login__title {
+  font-size: 3.5rem;
   font-weight: 700;
 }
 
-.header-subtitle {
-  margin: 1rem 0 0 0;
-  font-size: 2.5rem;
+.registry-login__subtitle {
+  font-size: 1.2rem;
 }
 
-.form {
-  margin: 6rem 0 4rem 0;
-}
-
-.form-label {
-  margin: 0 0 1rem 0;
-  font-size: 1.4rem;
-}
-
-.form-input, .form-input:focus {
-  margin: 0 0 2rem 0;
+.form-control, .form-control:focus {
+  border:none;
+  border-bottom: 1px solid #1d1d1f;
   background-color: transparent;
-  border: .1rem solid #00CDAC;
-  color: #ffffff;
-  font-size: 1.6rem;
+  color: #1d1d1f;
+  font-size: 1.1rem;
 }
 
-.form-input::placeholder {
-  color: #3f3f3f;
+.form-floating {
+  color: #1d1d1f;
 }
 
-.form-validator-wrapper {
-  margin: 4rem 0 2rem 0;
-  padding: .375rem .75rem;
-  border-radius: .25rem;
-  font-size: 1.6rem;
+.form-control-lg {
+  border-radius: 0;
 }
 
-.form-validator-error {
-  border: .1rem solid #cd0000;
-}
-
-.form-validator-success {
-  border: .1rem solid #00CDAC;
-}
-
-.form-validator-text {
-  margin: 0;
-}
-
-.btn-look {
-  margin: 2rem 0 0 0;
-  background-color: #00CDAC;
-  border: none;
-  color: #ffffff;
-  font-size: 2rem;
-}
-
-.btn-look:hover {
-  color: #1e1e2f;
-}
-
-.login-information-text {
-  padding: 2rem 0 0 0;
-  font-size: 1.6rem;
-  border-top: .1rem solid #00CDAC;
-}
-
-.login-information-link {
+.btn {
+  background-color: #1d1d1f;
+  border-radius: 0;
   text-transform: uppercase;
-  text-decoration: none;
-  color: #ffffff;
   font-weight: 700;
+  color: #ffffff;
 }
 
-.login-information-link:hover {
-  color: #00CDAC;
+.btn:hover {
+  background-color: #1d1d1f;
+  color: #ffffff;
+}
+
+.registry-login__link {
+  color:#1d1d1f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.registry-login__link:hover {
+  color: #1d1d1f;
+  text-decoration: underline;
+}
+
+.flash-message__error {
+  color: #ff0000;
+}
+
+.flash-message__success {
+  color: #3bcf00;
 }

@@ -1,11 +1,10 @@
 'use strict'
 
-/*
-* Logout / Get controller
-*/
+// Logout / Get controller
 const logoutController = (req, res) => {
   req.logout();
-  res.redirect('login');
+  req.flash('success', 'Logout success');
+  res.redirect('/');
 }
 
 module.exports = logoutController;

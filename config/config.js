@@ -5,9 +5,7 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: path.join(__dirname, '/.env') });
 
-/*
-* Database
-*/
+// Database
 const dbConfig = {
   user: process.env.DB_USER,
   pass: process.env.DB_USER_PASSWORD,

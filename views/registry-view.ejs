@@ -1,43 +1,49 @@
 <%- include ("templates/header.ejs") %>
-<div class="container h-100 d-flex flex-column justify-content-center">
-  <div class="row justify-content-center">
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 text-center">
-      <h1 class="header-title">Join us</h1>
-      <h2 class="header-subtitle">Registry new user account</h2>
+  <div class="d-flex align-items-center min-vh-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-5 col-xxl-5 p-5 registry-login">
+          <form action="/registry" method="POST" class="mb-5">
+            <div class="mb-5 text-center">
+              <h3 class="registry-login__title">Create</h3>
+              <h5 class="registry-login__subtitle">Fill in the fields below to create your account</h5>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" name="email" id="email-field" class="form-control form-control-lg shadow-none" placeholder="Enter email address">
+              <label for="emailField" class="form-label">Email Address</label>
+              <div class="form-text text-center">Adresy email z tymczasowych domen są automatycznie odrzucane</div>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" name="confirmEmail" id="confirm-email-field" class="form-control form-control-lg shadow-none" placeholder="Enter email address">
+              <label for="confirm-email-field" class="form-label">Confrim Email Address</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" name="password" id="password-field" class="form-control form-control-lg shadow-none" placeholder="Enter password">
+              <label for="password-field" class="form-label">Password</label>
+              <div class="form-text text-center">Haslo musi zawierać dziesięć bądź więcej znaków</div>
+            </div>
+            <div class="form-floating">
+              <input type="password" name="confirmPassword" id="confirm-password-field" class="form-control form-control-lg shadow-none" placeholder="Enter password">
+              <label for="confirm-password-field" class="form-label">Confirm Password</label>
+            </div>
+            <% if(error) { %>
+              <div class="mt-1 mb-2 text-center flash-message">
+                <% if(error) { %>
+                  <p class="p-3 flash-message__error"> <%= error %></p>
+                <% } %>
+              </div>
+            <% } %>
+            <div class="d-flex justify-content-center mt-4">
+              <button type="submit" disabled="true" id="btn" class="btn">JOIN</button>
+            </div>
+          </form>
+          <div class="d-grid text-center">
+            <p>If you have account, you can login!<br><a href="/" class="registry-login__link">Click here</a> and login to account</p>
+          </div>
+        </div>
+        <%- include ("templates/about-project.ejs") %>
+      </div>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-      <form class="form" action="/registry" method="post">
-        <label class="form-label" for="email">Email address</label>
-        <input id="email" type="text" class="form-control form-input" name="email" placeholder="your@email.com" autofocus>
-
-        <label class="form-label" for="confirm-email">Confirm email address</label>
-        <input id="confirm-email" type="text" class="form-control form-input" name="confirmEmail" placeholder="your@email.com">
-
-        <label class="form-label" for="password">Password</label>
-        <input id="password" type="password" class="form-control form-input" name="password" placeholder="S3cr3tP4ssW0rD">
-
-        <label class="form-label" for="confirm-password">Confirm password</label>
-        <input id="confirm-password" type="password" class="form-control form-input" name="confirmPassword" placeholder="S3cr3tP4ssW0rD">
-        
-        <% if (error) { %>
-          <div class="text-center form-validator-wrapper form-validator-error">
-            <p class="form-validator-text"><%= error %></p>
-        </div>
-        <% } %>
-        <div class="text-center">
-          <button id="btn" type="submit" class="btn btn-lg btn-look" disabled="true">Registry</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="row justify-content-center text-center">
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-      <p class="login-information-text">If you have account, 
-        <a class="login-information-link" href="/login">Login</a>!</p>
-  </div>
-  </div>
-</div>
-<script src="/javascripts/registry-button-state.js"></script>
+  <script src="/javascripts/registry-button-state.js"></script>
 <%- include ("templates/footer.ejs") %>
