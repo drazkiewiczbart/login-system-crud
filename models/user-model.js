@@ -11,7 +11,7 @@ module.exports = function(mongoose) {
         address: { type: 'string', default: null },
         city: { type: 'string', default: null },
         country: { type: 'string', default: null },
-        postalCode: { type: 'string', default: null },
+        postCode: { type: 'string', default: null },
         aboutMe: { type: 'string', default: null }
       },
       accountDetails: {

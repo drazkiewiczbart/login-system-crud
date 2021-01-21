@@ -5,8 +5,8 @@ body {
   color: #1d1d1f;
 }
 
-.information {
-  
+textarea {
+  height: 10rem !important;
 }
 
 .information__paragraph {
@@ -20,12 +20,12 @@ body {
   border-radius: .5rem;
 }
 
-.registry-login__title {
+.registry-login__title, .profile__main-data__name {
   font-size: 3.5rem;
   font-weight: 700;
 }
 
-.registry-login__subtitle {
+.registry-login__subtitle, .profile__main-data__email {
   font-size: 1.2rem;
 }
 
@@ -58,6 +58,11 @@ body {
   color: #ffffff;
 }
 
+.btn > a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
 .registry-login__link {
   color:#1d1d1f;
   font-weight: 700;
@@ -75,4 +80,21 @@ body {
 
 .flash-message__success {
   color: #3bcf00;
+}
+
+.profile__main-data__email {
+  margin: 0rem;
+}
+
+.profile__section-title {
+  border-bottom: 1px solid #a5a5a5;
+}
+
+.profile__section-title--font {
+  font-size: 1.1rem;
+  color: #a5a5a5;
+}
+
+.profile__user-details p {
+  margin: 0rem;
 }
