@@ -5,5 +5,5 @@ const { getController, postController } = require('../controllers/update-control
 
 module.exports = app => {
   app.get('/update', isLoginController, getController);
-  app.post('/update', postController);
+  app.post('/update', isLoginController, postController);
 }

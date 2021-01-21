@@ -53,6 +53,7 @@ require('../routers/index-router')(app, passport);
 require('../routers/profile-router')(app);
 require('../routers/logout-router')(app);
 require('../routers/update-router')(app);
+require('../routers/delete-router')(app);
 
 // Database and server
 // Start and settings

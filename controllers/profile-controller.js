@@ -4,25 +4,40 @@ const mongoose = require('mongoose');
 const user = mongoose.model('users');
 const moment = require('moment');
 
+const checkLastActivity = (dataFormat, currentUser) => {
+  const nowDate = moment().format(dataFormat);
+  const lastUserActivity = moment(currentUser.accountDetails.lastActivityAt).format(dataFormat);
+  if(nowDate !== lastUserActivity) {
+    currentUser.accountDetails.lastActivityAt = nowDate;
+    currentUser.save();
+  }
+}
+
+const setFirstNameLastName = (currentUser) => {
+  const userFirstName = currentUser.userDetails.firstName;
+  const userLastName = currentUser.userDetails.lastName;
+  if(!userFirstName || !userLastName) {
+      return 'John Doe'
+  } else if (userFirstName && !userLastName) {
+      return `${userFirstName} Doe`
+  } else if (!userFirstName && userLastName) {
+      return `John ${userLastName}`
+  } else {
+      return `${userFirstName} ${userLastName}`
+  }
+}
+
 // Get controller
-const getController = (req, res) => {
+const getController = async (req, res) => {
+  const currentUser = await user.findById(req.user).exec();
+
   user.findById(req.user, (error, user) => {
-    if(moment().format('YYYY-MM-DD') !== moment(user.accountDetails.lastActivityAt).format('YYYY-MM-DD')) {
-      const currentTime = moment().format('YYYY-MM-DD');
-      user.accountDetails.lastActivityAt = currentTime;
-    }
-    let firstNameLastName = '';
-    if(!user.userDetails.firstName || !user.userDetails.lastName) {
-        firstNameLastName = 'John Doe'
-    } else if (user.userDetails.firstName && !user.userDetails.lastName) {
-        firstNameLastName = `${user.userDetails.firstName} Doe`
-    } else if (!user.userDetails.firstName && user.userDetails.lastName) {
-        firstNameLastName = `John ${user.userDetails.lastName}`
-    } else {
-        firstNameLastName = `${user.userDetails.firstName} ${user.userDetails.lastName}`
-    }
+    const dataFormat = 'YYYY-MM-DD';
+
+    checkLastActivity(dataFormat, currentUser);
+
     res.render('profile-view', {
-      firstNameLastName: firstNameLastName,
+      firstNameLastName: setFirstNameLastName(currentUser),
       emailAddress: user.emailAddress,
       userDetailsData: {
         aboutMe: user.userDetails.aboutMe,
@@ -32,8 +47,8 @@ const getController = (req, res) => {
         country: user.userDetails.country
       },
       accountDetailsData: {
-        createdAt: moment(user.accountDetails.createdAt).format('YYYY-MM-DD'),
-        lastActivityAt: moment(user.accountDetails.lastActivityAt).format('YYYY-MM-DD')
+        createdAt: moment(currentUser.accountDetails.createdAt).format(dataFormat),
+        lastActivityAt: moment(currentUser.accountDetails.lastActivityAt).format(dataFormat)
       },
         error: req.flash('error').toString(),
         success: req.flash('success').toString()
