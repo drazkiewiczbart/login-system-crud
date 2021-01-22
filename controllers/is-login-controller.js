@@ -10,4 +10,6 @@ const isLoginController = (req, res, next) => {
   }
 }
 
-module.exports = isLoginController;
+module.exports = {
+  isLoginController
+};
