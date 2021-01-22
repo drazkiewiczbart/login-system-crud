@@ -72,6 +72,3 @@ mongoose.connect(dbPath, dbConfig)
   console.log('Database has problem with connection. Node server is down')
   console.log(error);
 });
-
-const db = mongoose.connection;
-// TODO: add events handlers 'error' etc.
