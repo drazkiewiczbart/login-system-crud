@@ -1,7 +1,7 @@
 {
   "name": "login-system",
   "version": "1.0.0",
-  "description": "Login system with user data operations.",
+  "description": "Login system and CRUD operations on data",
   "main": "server.js",
   "scripts": {
     "start": "node config/server.js",
@@ -13,8 +13,13 @@
     "crud",
     "data"
   ],
+  "homepage": "https://github.com/drazkiewiczbart/login-system#readme",
   "author": "Bartłomiej Drążkiewicz",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drazkiewiczbart/login-system.git"
+  },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "burner-email-providers": "^1.0.38",
