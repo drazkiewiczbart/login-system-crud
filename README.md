@@ -2,8 +2,7 @@
 ### [Preview project](https://bit.ly/3680hKa)
 
 ### About project  
-Website allows creates users, login to system, updates data and deletes them.
-Since this is a education and portfolio project and wanting to relieve the server resources, I decided that all data are deleted from database every day at specific hour.
+Education and portfolio project. Website allows creates users, login to system, updates data and deletes them.  
 
 ### Core technologies  
 * Node.js  
