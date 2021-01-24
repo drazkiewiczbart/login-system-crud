@@ -4,19 +4,23 @@ const mongoose = require('mongoose');
 const user = mongoose.model('users');
 const moment = require('moment');
 
-const checkLastActivity = (dataFormat, user) => {
+const checkLastUserActivity = (dataFormat, object) => {
   const nowDate = moment().format(dataFormat);
-  const lastUserActivity = moment(user.accountDetails.lastActivityAt).format(dataFormat);
+  const lastUserActivityDate = moment(object.accountDetails.lastActivityAt).format(dataFormat);
 
-  if(nowDate !== lastUserActivity) {
-    user.accountDetails.lastActivityAt = nowDate;
-    user.save();
-  }
-}
+  if(nowDate !== lastUserActivityDate) {
+    object.accountDetails.lastActivityAt = nowDate;
+    object.save((error, object) => {
+      if(error) {
+        throw 'Sorry, we can\'t load your profile. Please try again later';
+      };
+    });
+  };
+};
 
-const setFirstNameLastName = (user) => {
-  const userFirstName = user.userDetails.firstName;
-  const userLastName = user.userDetails.lastName;
+const setFirstNameLastName = object => {
+  const userFirstName = object.userDetails.firstName;
+  const userLastName = object.userDetails.lastName;
 
   if(!userFirstName && !userLastName) {
       return 'John Doe'
@@ -26,34 +30,45 @@ const setFirstNameLastName = (user) => {
       return `John ${userLastName}`
   } else {
       return `${userFirstName} ${userLastName}`
-  }
-}
+  };
+};
 
-// Get controller
-const getController = (req, res) => {
-  user.findById(req.user, (error, user) => {
-    const dataFormat = 'YYYY-MM-DD';
-
-    checkLastActivity(dataFormat, user);
-
-    res.render('profile-view', {
-      firstNameLastName: setFirstNameLastName(user),
-      emailAddress: user.emailAddress,
-      userDetailsData: {
-        aboutMe: user.userDetails.aboutMe,
-        address: user.userDetails.address,
-        city: user.userDetails.city,
-        postCode: user.userDetails.postCode,
-        country: user.userDetails.country
-      },
-      accountDetailsData: {
-        createdAt: moment(user.accountDetails.createdAt).format(dataFormat),
-        lastActivityAt: moment(user.accountDetails.lastActivityAt).format(dataFormat)
-      },
-        error: req.flash('error').toString(),
-        success: req.flash('success').toString()
-    });
+const getProfile = (req, res) => {
+  user.findById(req.user, (error, object) => {
+    if(error) {
+      req.flash('error', 'Sorry, we can\'t load your profile. Please try again later');
+      res.redirect('/');
+    } else {
+      const dataFormat = 'YYYY-MM-DD';
+  
+      try {
+        checkLastUserActivity(dataFormat, object);
+      } catch (error) {
+        req.flash('error', error);
+        res.redirect('/');
+      };
+  
+      res.render('profile-view', {
+        firstNameLastName: setFirstNameLastName(object),
+        emailAddress: object.emailAddress,
+        userDetailsData: {
+          aboutMe: object.userDetails.aboutMe,
+          address: object.userDetails.address,
+          city: object.userDetails.city,
+          postCode: object.userDetails.postCode,
+          country: object.userDetails.country
+        },
+        accountDetailsData: {
+          createdAt: moment(object.accountDetails.createdAt).format(dataFormat),
+          lastActivityAt: moment(object.accountDetails.lastActivityAt).format(dataFormat)
+        },
+          error: req.flash('error').toString(),
+          success: req.flash('success').toString()
+      });
+    };
   });
 };
 
-module.exports = { getController };
+module.exports = {
+  getProfile
+};

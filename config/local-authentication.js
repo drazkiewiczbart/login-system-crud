@@ -2,28 +2,23 @@
 
 const bcrypt = require('bcrypt');
 
-// Validation password function
-const passwordValidation = (user, password_form) => {
-  const userPasswordInDB = user.password;
+const passwordValidation = (object, password_form) => {
+  const userPasswordInDB = object.password;
 
-  bcrypt.compare(password_form, userPasswordInDB, (error, result) => {
-    if(error) { return false };
-    return result;
-  })
-}
+  return bcrypt.compareSync(password_form, userPasswordInDB);
+};
 
-// Passport local auth strategy
 module.exports = function(passport, LocalStrategy, mongoose) {
   const user = mongoose.model('users');
 
-  passport.serializeUser((user, done) => {
-    return done(null, user._id);
+  passport.serializeUser((object, done) => {
+    return done(null, object._id);
   });
 
   passport.deserializeUser((_id, done) => {
-    user.findById(_id, (error, user) => {
-      return done(error, user._id);
-    })
+    user.findById(_id, (error, object) => {
+      return done(error, object._id);
+    });
   });
 
   passport.use('local-authentication', new LocalStrategy({
@@ -31,12 +26,12 @@ module.exports = function(passport, LocalStrategy, mongoose) {
     passwordField: 'password'
   },
     function(email, password, done) {
-      user.findOne({ emailAddress: email }, (error, user) => {
+      user.findOne({ emailAddress: email }, (error, object) => {
         if(error) { return done(error); }
-        if(!user) { return done(null, false); }
-        if(passwordValidation(user, password)) { return done(null, false,); }
-        return done(null, user);
+        if(!object) { return done(null, false); }
+        if(!passwordValidation(object, password)) { return done(null, false); }
+        return done(null, object);
       });
     }
   ));
-}
+};

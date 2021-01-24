@@ -1,8 +1,8 @@
 'use strict'
 
-const { isLoginController } = require('../controllers/is-login-controller');
-const { postController } = require('../controllers/update-controller');
+const { isUserLogin } = require('../controllers/is-login-controller');
+const { postUpdate } = require('../controllers/update-controller');
 
 module.exports = app => {
-  app.post('/update', isLoginController, postController);
-}
+  app.post('/update', isUserLogin, postUpdate);
+};

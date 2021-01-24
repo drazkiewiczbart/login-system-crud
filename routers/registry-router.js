@@ -1,8 +1,8 @@
 'use strict'
 
-const { getController, postController, formDataValidation } = require('../controllers/registry-controller');
+const { getRegistry, postRegistry, registryFormDataValidation } = require('../controllers/registry-controller');
 
 module.exports = app => {
-  app.get('/registry', getController);
-  app.post('/registry', formDataValidation, postController);
-}
+  app.get('/registry', getRegistry);
+  app.post('/registry', registryFormDataValidation, postRegistry);
+};

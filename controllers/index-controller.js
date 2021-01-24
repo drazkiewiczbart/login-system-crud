@@ -1,15 +1,13 @@
 'use strict'
 
-// Get controller
-const getController = (req, res) => {
+const getIndex = (req, res) => {
   res.render('index-view', {
     error: req.flash('error').toString(),
     success: req.flash('success').toString()
   });
-}
+};
 
-// Data validation for post controller
-const formDataValidation = (req, res, next) => {
+const indexFormDataValidation = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -18,7 +16,10 @@ const formDataValidation = (req, res, next) => {
     res.redirect('/');
   } else {
     next();
-  }
-}
+  };
+};
 
-module.exports = { getController, formDataValidation }
+module.exports = {
+  getIndex,
+  indexFormDataValidation
+};
