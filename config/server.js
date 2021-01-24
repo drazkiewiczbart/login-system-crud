@@ -16,6 +16,8 @@ const localStrategy = require('passport-local').Strategy;
 const path = require('path');
 // Flash
 const flash = require('connect-flash');
+// Schedule
+const schedule = require('node-schedule');
 // Express
 const express = require('express');
 const app = express();
@@ -65,10 +67,26 @@ mongoose.connect(dbPath, dbConfig)
       console.log(`Node server is running on ${host}:${port}`);
     });
   } catch(error) {
-    console.log('Node server has a problem');
-    console.log(error);
+    console.error('Node server has a problem');
+    console.error(error);
   }
 }).catch((error) => {
-  console.log('Database has problem with connection. Node server is down')
-  console.log(error);
+  console.error('Database has problem with connection. Node server is down')
+  console.error(error);
+});
+
+schedule.scheduleJob('59 23 * * *', () => {
+  const collectionsToDrop = ['users', 'sessions'];
+
+  for (const collection of collectionsToDrop) {
+    if(mongoose.connection.collection(collection).length > 0) {
+        mongoose.connection.dropCollection(collection)
+        .then(() => {
+          console.log(`Drop ${collection} collection success`);
+        })
+        .catch(() => {
+          console.error(`Sorry, can\'t drop ${collection} collection`);
+        });
+    };
+  };
 });

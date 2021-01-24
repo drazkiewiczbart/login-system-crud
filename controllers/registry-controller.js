@@ -7,9 +7,13 @@ const moment = require('moment');
 const { isEmailBurner } = require('burner-email-providers');
 
 const getRegistry = (req, res) => {
-  res.render('registry-view', {
-    error: req.flash('error').toString()
-  });
+  if(req.user) {
+    res.redirect('/profile');
+  } else {
+    res.render('registry-view', {
+      error: req.flash('error').toString()
+    });
+  }
 };
 
 const postRegistry = (req, res) => {

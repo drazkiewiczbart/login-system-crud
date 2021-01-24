@@ -1,10 +1,14 @@
 'use strict'
 
 const getIndex = (req, res) => {
-  res.render('index-view', {
-    error: req.flash('error').toString(),
-    success: req.flash('success').toString()
-  });
+  if(req.user) {
+    res.redirect('/profile');
+  } else {
+    res.render('index-view', {
+      error: req.flash('error').toString(),
+      success: req.flash('success').toString()
+    });
+  }
 };
 
 const indexFormDataValidation = (req, res, next) => {
