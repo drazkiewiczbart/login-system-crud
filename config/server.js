@@ -79,7 +79,8 @@ schedule.scheduleJob('59 23 * * *', () => {
   const collectionsToDrop = ['users', 'sessions'];
 
   for (const collection of collectionsToDrop) {
-    if(mongoose.connection.collection(collection).length > 0) {
+    mongoose.connection.collection(collection).stats((error, object) => {
+      if(object.count) {
         mongoose.connection.dropCollection(collection)
         .then(() => {
           console.log(`Drop ${collection} collection success`);
@@ -87,6 +88,7 @@ schedule.scheduleJob('59 23 * * *', () => {
         .catch(() => {
           console.error(`Sorry, can\'t drop ${collection} collection`);
         });
-    };
+      }
+    });
   };
 });
