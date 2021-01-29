@@ -5,6 +5,7 @@ const user = mongoose.model('users');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 const { isEmailBurner } = require('burner-email-providers');
+const { check, validationResult } = require('express-validator');
 
 const getRegistry = (req, res) => {
   if(req.user) {
@@ -41,65 +42,68 @@ const postRegistry = (req, res) => {
   });
 };
 
-const isEmptyFields = (...fields) => {
-  fields.forEach(field => {
-    if(!field) { throw 'To create account you need insert email address, password and confirm this data'};
-  });
-};
 
-const isEmailConfirm = (email, confirmEmail) => {
-  if(email !== confirmEmail) { throw 'Email address are not identical' };
-};
+const validatorExpress = [
+  check('email', 'confirmEmail', 'password', 'confirmPassword')
+  .notEmpty()
+  .withMessage('To create account you need insert email address, password and confirm this data'),
 
-const isPasswordConfirm = (password, confirmPassword) => {
-  if(password !== confirmPassword) { throw 'Passwords are not identical' };
-};
+  check('email')
+  .notEmpty()
+  .withMessage('To create account you need first insert email address')
+  .bail()
+  .isEmail()
+  .withMessage('Incorrect email address')
+  .bail()
+  .custom(email => !(isEmailBurner(email)))
+  .withMessage('Untrusted provider, please use different email address'),
 
-const isEmailMatchToPattern = (email, emailRegex) => {
-  if(!emailRegex.test(email)) { throw 'Incorrect email address' };
-};
+  check('confirmEmail')
+  .notEmpty()
+  .withMessage('You need confirm email address')
+  .bail()
+  .custom((confirmEmail, {req}) => confirmEmail === req.body.email)
+  .withMessage('Email address are not identical')
+  .bail(),
 
-const checkPasswordLength = password => {
-  if (password.length < 10) { throw 'Password must contain ten or more characters'};
-};
+  check('password')
+  .notEmpty()
+  .withMessage('To create account you need insert password')
+  .bail()
+  .isLength({ min: 10 })
+  .withMessage('Password must contain ten or more characters')
+  .bail(),
 
-const isEmailTrusted = email => {
-  if (isEmailBurner(email)) { throw 'Untrusted provider, please use different email address'};
-};
+  check('confirmPassword')
+  .notEmpty()
+  .withMessage('You need confirm password')
+  .bail()
+  .custom((confirmPassword, {req}) => confirmPassword === req.body.password)
+  .withMessage('Passwords are not identical')
+  .bail(),
 
-const registryFormDataValidation = (req, res, next) => {
-  const email = req.body.email;
-  const confirmEmail = req.body.confirmEmail;
-  const emailRegex = /\w+@{1}\w+.{1}\w+/;
-  const password = req.body.password;
-  const confirmPassword = req.body.confirmPassword;
+  check('email')
+  .custom(async function(email) { 
+    const res = await user.findOne({ emailAddress: email });
+    if(res) throw new Error();
+    }
+  )
+  .withMessage('This email address is already used'),
 
-  try {
-    isEmptyFields(email, confirmEmail, password, confirmPassword);
-    isEmailConfirm(email, confirmEmail);
-    isPasswordConfirm(password, confirmPassword);
-    isEmailMatchToPattern(email, emailRegex);
-    checkPasswordLength(password);
-    isEmailTrusted(email);
-    user.findOne({ emailAddress: email }, (error, object) => {
-      if(error) {
-        req.flash('error', 'Sorry, we can\'t check your email address in out database. Please try again later');
-        res.redirect('/registry');
-      } else if(object) { 
-        req.flash('error', 'This email address is already used');
-        res.redirect('/registry');
-      } else {
-        next();
-      };
-    });
-  } catch (error) {
-    req.flash('error', error);
-    res.redirect('/registry');
-  };
-};
+  (req, res, next) => {
+    const error = validationResult(req);
+    if(!error.isEmpty()) {
+      const errorMsg = error.errors[0].msg;
+      req.flash('error', errorMsg);
+      res.redirect('/registry');
+    } else {
+      next();
+    };
+  }
+];
 
 module.exports = {
   getRegistry,
   postRegistry,
-  registryFormDataValidation
+  validatorExpress
 };

@@ -18,6 +18,8 @@ const path = require('path');
 const flash = require('connect-flash');
 // Schedule
 const schedule = require('node-schedule');
+// Express validator
+const { body, validationResult } = require('express-validator');
 // Express
 const express = require('express');
 const app = express();
