@@ -26,10 +26,10 @@
               <input type="password" name="confirmPassword" id="confirm-password-field" class="form-control form-control-lg shadow-none" placeholder="Enter password">
               <label for="confirm-password-field" class="form-label">Confirm Password</label>
             </div>
-            <% if(error) { %>
+            <% if(err) { %>
               <div class="mt-1 mb-2 text-center flash-message">
-                <% if(error) { %>
-                  <p class="p-3 flash-message__error"> <%= error %></p>
+                <% if(err) { %>
+                  <p class="p-3 flash-message__error"> <%= err %></p>
                 <% } %>
               </div>
             <% } %>
