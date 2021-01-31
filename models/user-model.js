@@ -1,6 +1,6 @@
-'use strict'
+// const { Schema } = require('mongoose');
 
-module.exports = function(mongoose) {
+module.exports = (mongoose) => {
   const userSchema = new mongoose.Schema(
     {
       emailAddress: { type: 'string', required: true },
@@ -12,18 +12,16 @@ module.exports = function(mongoose) {
         city: { type: 'string', default: null },
         country: { type: 'string', default: null },
         postCode: { type: 'string', default: null },
-        aboutMe: { type: 'string', default: null }
+        aboutMe: { type: 'string', default: null },
       },
       accountDetails: {
         createdAt: { type: Date, default: null, required: true },
-        lastActivityAt: { type: Date, default: null
-        }
-      }
+        lastActivityAt: { type: Date, default: null },
+      },
     },
     {
-      versionKey: false
-    }
+      versionKey: false,
+    },
   );
   return mongoose.model('users', userSchema);
-}
-
+};

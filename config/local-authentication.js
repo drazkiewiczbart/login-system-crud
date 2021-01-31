@@ -1,37 +1,42 @@
-'use strict'
-
 const bcrypt = require('bcrypt');
 
-const passwordValidation = (object, password_form) => {
-  const userPasswordInDB = object.password;
-
-  return bcrypt.compareSync(password_form, userPasswordInDB);
+const passwordValidation = async (doc, password) => {
+  try {
+    const userPasswordFromDB = doc.password;
+    return await bcrypt.compare(password, userPasswordFromDB);
+  } catch (err) {
+    return false;
+  }
 };
 
-module.exports = function(passport, LocalStrategy, mongoose) {
-  const user = mongoose.model('users');
+module.exports = (passport, LocalStrategy, mongoose) => {
+  const User = mongoose.model('users');
 
-  passport.serializeUser((object, done) => {
-    return done(null, object._id);
-  });
+  passport.serializeUser((doc, done) => { done(null, doc._id); });
 
-  passport.deserializeUser((_id, done) => {
-    user.findById(_id, (error, object) => {
-      return done(error, object._id);
-    });
+  passport.deserializeUser(async (_id, done) => {
+    try {
+      const doc = await User.findById(_id).exec();
+      done(null, doc);
+    } catch (err) {
+      done(err, null);
+    }
   });
 
   passport.use('local-authentication', new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password'
+    passwordField: 'password',
   },
-    function(email, password, done) {
-      user.findOne({ emailAddress: email }, (error, object) => {
-        if(error) { return done(error); }
-        if(!object) { return done(null, false); }
-        if(!passwordValidation(object, password)) { return done(null, false); }
-        return done(null, object);
-      });
+  async (email, password, done) => {
+    try {
+      const normalizeEmail = email.toLowerCase();
+      const doc = await User.findOne({ emailAddress: normalizeEmail }).exec();
+
+      if (!doc) return done(null, false);
+      if (!passwordValidation(doc, password)) return done(null, false);
+      return done(null, doc);
+    } catch (err) {
+      return done(err);
     }
-  ));
+  }));
 };

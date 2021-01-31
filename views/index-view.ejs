@@ -16,13 +16,13 @@
               <input type="password" name="password" id="password-field" class="form-control form-control-lg shadow-none" placeholder="Enter password">
               <label for="password-field" class="form-label">Password</label>
             </div>
-            <% if(error || success) { %>
+            <% if(err || suc) { %>
               <div class="mt-1 mb-2 text-center flash-message">
-                <% if(error) { %>
-                  <p class="p-3 flash-message__error"> <%= error %></p>
+                <% if(err) { %>
+                  <p class="p-3 flash-message__error"> <%= err %></p>
                 <% } %>
-                <% if(success) { %>
-                  <p class="p-3 flash-message__success"> <%= success %></p>
+                <% if(suc) { %>
+                  <p class="p-3 flash-message__success"> <%= suc %></p>
                 <% } %>
               </div>
             <% } %>

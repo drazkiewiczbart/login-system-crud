@@ -1,5 +1,5 @@
 body {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: .875rem;
   font-weight: 300;
   color: #1d1d1f;
@@ -12,7 +12,7 @@ textarea {
 .information__paragraph {
   border-top: 1px solid #a5a5a5;
   font-size: .8rem;
-  text-align: justify;
+  text-align: center;
   color:#a5a5a5;
 }
 

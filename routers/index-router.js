@@ -1,12 +1,10 @@
-'use strict'
-
-const { getIndex, indexFormDataValidation } = require('../controllers/index-controller');
+const { loginUserPage, dataFormValidator } = require('../controllers/index-controller');
 
 module.exports = (app, passport) => {
-  app.get('/', getIndex);
-  app.post('/', indexFormDataValidation, passport.authenticate('local-authentication', {
+  app.get('/', loginUserPage);
+  app.post('/', dataFormValidator, passport.authenticate('local-authentication', {
     successRedirect: '/profile',
     failureRedirect: '/',
-    failureFlash: 'Invalid email address or password'
+    failureFlash: 'Invalid email address or password',
   }));
 };

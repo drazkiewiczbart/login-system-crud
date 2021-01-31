@@ -1,11 +1,9 @@
-'use strict'
-
 const logoutUser = (req, res) => {
   req.logout();
-  req.flash('success', 'Logout successful');
+  req.flash('suc', 'Logout successful');
   res.redirect('/');
 };
 
 module.exports = {
-  logoutUser
+  logoutUser,
 };

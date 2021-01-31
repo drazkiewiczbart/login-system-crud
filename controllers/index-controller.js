@@ -1,59 +1,50 @@
-'use strict'
-
 const { check, validationResult } = require('express-validator');
 
-const getIndex = (req, res) => {
-  if(req.user) {
+const loginUserPage = (req, res) => {
+  const flashSuccessMsg = req.flash('suc').toString();
+  const flashErrorMsg = req.flash('err').toString() || req.flash('error').toString();
+
+  if (req.user) {
     res.redirect('/profile');
   } else {
     res.render('index-view', {
-      error: req.flash('error').toString(),
-      success: req.flash('success').toString()
+      suc: flashSuccessMsg,
+      err: flashErrorMsg,
     });
   }
 };
 
-const indexFormDataValidation = [
+const dataFormValidator = [
   check('email', 'password')
-  .notEmpty()
-  .withMessage('To login into account you need insert email address and password'),
+    .notEmpty()
+    .withMessage('To login into account you need insert email address and password'),
 
   check('email')
-  .notEmpty()
-  .withMessage('To login into account you need insert email address')
-  .bail()
-  .isEmail()
-  .withMessage('Incorrect email address'),
+    .notEmpty()
+    .withMessage('To login into account you need insert email address')
+    .bail()
+    .isEmail()
+    .withMessage('Incorrect email address'),
 
   check('password')
-  .notEmpty()
-  .withMessage('To login into account you need insert password'),
+    .notEmpty()
+    .withMessage('To login into account you need insert password'),
 
   (req, res, next) => {
-    const error = validationResult(req);
-    if(!error.isEmpty()) {
-      const errorMsg = error.errors[0].msg;
-      req.flash('error', errorMsg);
+    const err = validationResult(req);
+
+    if (!err.isEmpty()) {
+      const errMsg = err.errors[0].msg;
+
+      req.flash('err', errMsg);
       res.redirect('/');
     } else {
       next();
     }
-  }
-]
-
-// const indexFormDataValidation = (req, res, next) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   if(!email || !password) {
-//     req.flash('error', 'To login you need input email address and password');
-//     res.redirect('/');
-//   } else {
-//     next();
-//   };
-// };
+  },
+];
 
 module.exports = {
-  getIndex,
-  indexFormDataValidation
+  loginUserPage,
+  dataFormValidator,
 };

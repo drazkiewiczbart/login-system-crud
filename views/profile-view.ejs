@@ -3,8 +3,8 @@
   <div class="container">
     <div class="row my-3 justify-content-center">
       <div class="col-12 text-center">
-        <h1 class="profile__main-data__name"><%= firstNameLastName %></h1>
-        <p class="profile__main-data__email"><%= emailAddress %></p>
+        <h1 class="profile__main-data__name"><%= userDataFromDB.firstName %> <%= userDataFromDB.lastName %></h1>
+        <p class="profile__main-data__email"><%= userDataFromDB.emailAddress %></p>
       </div>
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-5 p-sm-2 p-md-5">
         <div class="row mt-4 profile__section-title">
@@ -19,7 +19,7 @@
                 <p>About me:</p>
               </div>
               <div class="col-9">
-                <p><%= userDetailsData.aboutMe %></p>
+                <p><%= userDataFromDB.userDetailsData.aboutMe %></p>
               </div>
             </div>
             <div class="row">
@@ -27,7 +27,7 @@
                 <p>Address:</p>
               </div>
               <div class="col-9">
-                <p><%= userDetailsData.address %></p>
+                <p><%= userDataFromDB.userDetailsData.address %></p>
               </div>
             </div>
             <div class="row">
@@ -35,7 +35,7 @@
                 <p>City:</p>
               </div>
               <div class="col-9">
-                <p><%= userDetailsData.city %></p>
+                <p><%= userDataFromDB.userDetailsData.city %></p>
               </div>
             </div>
             <div class="row">
@@ -43,7 +43,7 @@
                 <p>Postcode:</p>
               </div>
               <div class="col-9">
-                <p><%= userDetailsData.postCode %></p>
+                <p><%= userDataFromDB.userDetailsData.postCode %></p>
               </div>
             </div>
             <div class="row">
@@ -51,7 +51,7 @@
                 <p>Country:</p>
               </div>
               <div class="col-9">
-                <p><%= userDetailsData.country %></p>
+                <p><%= userDataFromDB.userDetailsData.country %></p>
               </div>
             </div>
           </div>
@@ -64,10 +64,10 @@
         <div class="row">
           <div class="p-3">
             <div class="col">
-              <p>Account created: <%= accountDetailsData.createdAt %></p>
+              <p>Account created: <%= userDataFromDB.accountDetailsData.createdAt %></p>
             </div>
             <div class="col">
-              <p>Last login at: <%= accountDetailsData.lastActivityAt %></p>
+              <p>Last activity at: <%= userDataFromDB.accountDetailsData.lastActivityAt %></p>
             </div>
           </div>
         </div>
@@ -143,13 +143,13 @@
                   </div>
                 </div>
               </div>
-              <% if(error || success) { %>
+              <% if(err || suc) { %>
                 <div class="mt-1 mb-2 text-center flash-message">
-                  <% if(error) { %>
-                    <p class="p-3 flash-message__error"> <%= error %></p>
+                  <% if(err) { %>
+                    <p class="p-3 flash-message__error"> <%= err %></p>
                   <% } %>
-                  <% if(success) { %>
-                    <p class="p-3 flash-message__success"> <%= success %></p>
+                  <% if(suc) { %>
+                    <p class="p-3 flash-message__success"> <%= suc %></p>
                   <% } %>
                 </div>
               <% } %>
