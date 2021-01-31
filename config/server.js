@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const express = require('express');
 const app = express();
 const { port, host, dbPath, dbConfig, sessionSecret } = require('./config');
+const { loggerInfo, loggerErr } = require('./log4jsConfig');
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
@@ -46,10 +47,10 @@ require('../routers/delete-router')(app);
 (async () => {
   try {
     await mongoose.connect(dbPath, dbConfig);
-    console.log('Database connected');
+    loggerInfo.info('Database connected');
     app.listen(port, host);
-    console.log(`Node server is running on ${host}:${port}`);
+    loggerInfo.info(`Node server is running on ${host}:${port}`);
   } catch (err) {
-    console.log(err);
+    loggerErr.fatal(`Database or server problem. Server is down. (${err})`);
   }
 })();

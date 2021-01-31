@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const moment = require('moment');
 const { isEmailBurner } = require('burner-email-providers');
 const { check, validationResult } = require('express-validator');
+const { loggerInfo, loggerErr } = require('../config/log4jsConfig');
 
 const registryUserPage = (req, res) => {
   const flashErrorMsg = req.flash('err').toString();
@@ -35,9 +36,11 @@ const createNewUserAccount = async (req, res) => {
       },
     });
     await newUser.save();
+    loggerInfo.info(`${normalizeEmail} created account`);
     req.flash('suc', 'Your account is ready to use, please login');
     res.redirect('/');
   } catch (err) {
+    loggerErr.error(`Someone try create account. (${err})`);
     req.flash('err', 'Sorry, we can\'t create your account. Please try again later');
     res.redirect('/registry');
   }

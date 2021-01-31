@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { loggerInfo } = require('./log4jsConfig');
 
 const passwordValidation = async (doc, password) => {
   try {
@@ -34,6 +35,7 @@ module.exports = (passport, LocalStrategy, mongoose) => {
 
       if (!doc) return done(null, false);
       if (!passwordValidation(doc, password)) return done(null, false);
+      loggerInfo.info(`${normalizeEmail} login into account`);
       return done(null, doc);
     } catch (err) {
       return done(err);
