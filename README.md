@@ -19,3 +19,4 @@ Education and portfolio project. Website allows creates users, login to system, 
 * database management,  
 * create website using template engine,  
 * launch project on VPS  
+* logs action into files
