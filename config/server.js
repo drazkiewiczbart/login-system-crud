@@ -43,6 +43,7 @@ require('../routers/profile-router')(app);
 require('../routers/logout-router')(app);
 require('../routers/update-router')(app);
 require('../routers/delete-router')(app);
+require('../routers/404-router')(app);
 
 (async () => {
   try {
