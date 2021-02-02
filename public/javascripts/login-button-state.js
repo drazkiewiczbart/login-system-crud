@@ -1,14 +1,16 @@
-const email = document.querySelector('#email-field');
-const password = document.querySelector('#password-field');
-const allInputFields = [email, password];
-const btn = document.querySelector('#btn');
+$(() => {
+  const email = $('#email-field');
+  const password = $('#password-field');
+  const allInputFields = [email, password];
+  const btn = $('#btn');
 
-allInputFields.forEach((inputField) => {
-  inputField.addEventListener('keyup', () => {
-    if (email.value && password.value) {
-      btn.disabled = false;
-    } else {
-      btn.disabled = true;
-    }
+  $.each(allInputFields, (_, value) => {
+    value.keyup(() => {
+      if (email.val() && password.val()) {
+        btn.attr('disabled', false);
+      } else {
+        btn.attr('disabled', true);
+      }
+    });
   });
 });

@@ -32,10 +32,9 @@ module.exports = (passport, LocalStrategy, mongoose) => {
     try {
       const normalizeEmail = email.toLowerCase();
       const doc = await User.findOne({ emailAddress: normalizeEmail }).exec();
-
       if (!doc) return done(null, false);
-      if (!passwordValidation(doc, password)) return done(null, false);
-      loggerInfo.info(`${normalizeEmail} login into account`);
+      if (!(await passwordValidation(doc, password))) return done(null, false);
+      loggerInfo.info(`${normalizeEmail} login into account.`);
       return done(null, doc);
     } catch (err) {
       return done(err);

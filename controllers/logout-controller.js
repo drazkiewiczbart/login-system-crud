@@ -1,6 +1,6 @@
 const logoutUser = (req, res) => {
   req.logout();
-  req.flash('suc', 'Logout successful');
+  req.flash('suc', 'Logout successful.');
   res.redirect('/');
 };
 

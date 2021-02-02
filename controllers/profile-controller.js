@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const user = mongoose.model('users');
 const moment = require('moment');
+const { loggerErr } = require('../config/log4jsConfig');
 
 const userProfilePage = async (req, res) => {
   try {
@@ -24,14 +25,17 @@ const userProfilePage = async (req, res) => {
     };
     const flashSuccessMsg = req.flash('suc').toString();
     const flashErrorMsg = req.flash('err').toString();
+    const flashWelcomeMsg = req.flash('wlc').toString();
 
     res.render('profile-view', {
       userDataFromDB,
       suc: flashSuccessMsg,
       err: flashErrorMsg,
+      wlc: flashWelcomeMsg,
     });
   } catch (err) {
-    req.flash('err', 'Sorry, we can\'t load your profile. Please try again later');
+    loggerErr.error(`Someone tried load profil page. (${err}).`);
+    req.flash('err', 'Sorry, we can\'t load your profile. Please try again later.');
     res.redirect('/');
   }
 };

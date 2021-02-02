@@ -18,7 +18,7 @@ const registryUserPage = (req, res) => {
   }
 };
 
-const createNewUserAccount = async (req, res) => {
+const createNewUserAccount = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const normalizeEmail = email.toLowerCase();
@@ -36,12 +36,14 @@ const createNewUserAccount = async (req, res) => {
       },
     });
     await newUser.save();
-    loggerInfo.info(`${normalizeEmail} created account`);
-    req.flash('suc', 'Your account is ready to use, please login');
-    res.redirect('/');
+    loggerInfo.info(`${normalizeEmail} created account.`);
+    req.flash('wlc', email);
+    req.body.email = email;
+    req.body.password = password;
+    next();
   } catch (err) {
-    loggerErr.error(`Someone try create account. (${err})`);
-    req.flash('err', 'Sorry, we can\'t create your account. Please try again later');
+    loggerErr.error(`Someone tried create account. (${err}).`);
+    req.flash('err', 'Sorry, we can\'t create your account. Please try again later.');
     res.redirect('/registry');
   }
 };
@@ -49,45 +51,45 @@ const createNewUserAccount = async (req, res) => {
 const dataFormValidator = [
   check('email', 'confirmEmail', 'password', 'confirmPassword')
     .notEmpty()
-    .withMessage('To create account you need insert email address, password and confirm this data'),
+    .withMessage('To create account you need insert email address, password and confirm this data.'),
 
   check('email')
     .notEmpty()
-    .withMessage('To create account you need first insert email address')
+    .withMessage('To create account you need first insert email address.')
     .bail()
     .isEmail()
-    .withMessage('Incorrect email address')
+    .withMessage('Incorrect email address.')
     .bail()
     .custom((email) => !(isEmailBurner(email)))
-    .withMessage('Untrusted provider, please use different email address'),
+    .withMessage('Untrusted provider, please use different email address.'),
 
   check('confirmEmail')
     .notEmpty()
-    .withMessage('You need confirm email address')
+    .withMessage('You need confirm email address.')
     .bail()
     .custom((confirmEmail, { req }) => confirmEmail === req.body.email)
-    .withMessage('Email address are not identical'),
+    .withMessage('Email address are not identical.'),
 
   check('password')
     .notEmpty()
-    .withMessage('To create account you need insert password')
+    .withMessage('To create account you need insert password.')
     .bail()
     .isLength({ min: 10 })
-    .withMessage('Password must contain ten or more characters'),
+    .withMessage('Password must contain ten or more characters.'),
 
   check('confirmPassword')
     .notEmpty()
-    .withMessage('You need confirm password')
+    .withMessage('You need confirm password.')
     .bail()
     .custom((confirmPassword, { req }) => confirmPassword === req.body.password)
-    .withMessage('Passwords are not identical'),
+    .withMessage('Passwords are not identical.'),
 
   check('email')
     .custom(async (email) => {
       const normalizeEmail = email.toLowerCase();
       const doc = await User.findOne({ emailAddress: normalizeEmail });
       if (doc) {
-        throw new Error('This email address is already used');
+        throw new Error('This email address is already used.');
       }
       return true;
     }),

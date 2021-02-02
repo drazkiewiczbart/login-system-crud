@@ -17,18 +17,18 @@ const loginUserPage = (req, res) => {
 const dataFormValidator = [
   check('email', 'password')
     .notEmpty()
-    .withMessage('To login into account you need insert email address and password'),
+    .withMessage('To login into account you need insert email address and password.'),
 
   check('email')
     .notEmpty()
-    .withMessage('To login into account you need insert email address')
+    .withMessage('To login into account you need insert email address.')
     .bail()
     .isEmail()
-    .withMessage('Incorrect email address'),
+    .withMessage('Incorrect email address.'),
 
   check('password')
     .notEmpty()
-    .withMessage('To login into account you need insert password'),
+    .withMessage('To login into account you need insert password.'),
 
   (req, res, next) => {
     const err = validationResult(req);

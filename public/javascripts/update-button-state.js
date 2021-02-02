@@ -1,19 +1,21 @@
-const firstName = document.querySelector('#first-name-field');
-const lastName = document.querySelector('#last-name-field');
-const aboutMe = document.querySelector('#about-me-field');
-const address = document.querySelector('#address-field');
-const city = document.querySelector('#city-field');
-const postCode = document.querySelector('#postcode-field');
-const country = document.querySelector('#country-field');
-const button = document.querySelector('#btn-update');
+$(() => {
+  const firstName = $('#first-name-field');
+  const lastName = $('#last-name-field');
+  const aboutMe = $('#about-me-field');
+  const address = $('#address-field');
+  const city = $('#city-field');
+  const postCode = $('#postcode-field');
+  const country = $('#country-field');
+  const btn = $('#btn-update');
+  const allFields = [firstName, lastName, aboutMe, address, city, postCode, country];
 
-const allFields = [firstName, lastName, aboutMe, address, city, postCode, country];
-allFields.forEach((field) => {
-  field.addEventListener('keyup', () => {
-    if(firstName.value || lastName.value || aboutMe.value || address.value || city.value || postCode.value || country.value) {
-      button.disabled = false;
-    } else {
-      button.disabled = true;
-    }
+  $.each(allFields, (_, value) => {
+    value.keyup(() => {
+      if(firstName.val() || lastName.val() || aboutMe.val() || address.val() || city.val() || postCode.val() || country.val()) {
+        btn.attr('disabled', false);
+      } else {
+        btn.attr('disabled', true);
+      }
+    });
   });
 });

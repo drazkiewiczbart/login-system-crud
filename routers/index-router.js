@@ -5,6 +5,6 @@ module.exports = (app, passport) => {
   app.post('/', dataFormValidator, passport.authenticate('local-authentication', {
     successRedirect: '/profile',
     failureRedirect: '/',
-    failureFlash: 'Invalid email address or password',
+    failureFlash: 'Invalid email address or password.',
   }));
 };

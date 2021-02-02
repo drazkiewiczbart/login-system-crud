@@ -6,7 +6,7 @@
           <form action="/" method="POST" class="mb-5">
             <div class="mb-5 text-center">
               <h3 class="registry-login__title">Hello</h3>
-              <h5 class="registry-login__subtitle">Login to account and discover what there waiting on you</h5>
+              <h5 class="registry-login__subtitle">Login to account and discover what there waiting on you.</h5>
             </div>
             <div class="form-floating mb-3">
               <input type="text" name="email" id="email-field" class="form-control form-control-lg shadow-none" placeholder="Enter email address" autofocus>
@@ -16,12 +16,12 @@
               <input type="password" name="password" id="password-field" class="form-control form-control-lg shadow-none" placeholder="Enter password">
               <label for="password-field" class="form-label">Password</label>
             </div>
-            <% if(err || suc) { %>
+            <% if (err || suc) { %>
               <div class="mt-1 mb-2 text-center flash-message">
-                <% if(err) { %>
+                <% if (err) { %>
                   <p class="p-3 flash-message__error"> <%= err %></p>
                 <% } %>
-                <% if(suc) { %>
+                <% if (suc) { %>
                   <p class="p-3 flash-message__success"> <%= suc %></p>
                 <% } %>
               </div>
@@ -31,7 +31,7 @@
             </div>
           </form>
           <div class="d-grid text-center">
-            <p>If you don't have account, you can create one!<br><a href="/registry" class="registry-login__link">Click here</a> and registry account</p>
+            <p>If you don't have account, you can create one!<br><a href="/registry" class="registry-login__link">Click here</a> and registry account.</p>
           </div>
         </div>
         <div class="row justify-content-center">

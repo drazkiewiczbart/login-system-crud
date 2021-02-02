@@ -37,7 +37,7 @@ app.use(passport.session());
 require('./local-authentication')(passport, LocalStrategy, mongoose);
 app.use(express.static(path.join(__dirname, '../public')));
 
-require('../routers/registry-router')(app);
+require('../routers/registry-router')(app, passport);
 require('../routers/index-router')(app, passport);
 require('../routers/profile-router')(app);
 require('../routers/logout-router')(app);
@@ -48,10 +48,10 @@ require('../routers/404-router')(app);
 (async () => {
   try {
     await mongoose.connect(dbPath, dbConfig);
-    loggerInfo.info('Database connected');
+    loggerInfo.info('Database connected.');
     app.listen(port, host);
-    loggerInfo.info(`Node server is running on ${host}:${port}`);
+    loggerInfo.info(`Node server is running on ${host}:${port}.`);
   } catch (err) {
-    loggerErr.fatal(`Database or server problem. Server is down. (${err})`);
+    loggerErr.fatal(`Database or server problem. Server not run. (${err}).`);
   }
 })();
