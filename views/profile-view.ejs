@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="p-3">
+          <div class="pt-3 px-3 pb-1">
             <div class="col">
               <p>Account created: <%= userDataFromDB.accountDetailsData.createdAt %></p>
             </div>
@@ -131,20 +131,20 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <div class="form-floating mb-3">
+                  <div class="form-floating">
                     <input type="text" name="postCode" id="postcode-field" class="form-control form-control-lg shadow-none" placeholder="Enter postcode">
                     <label for="postcode-field" class="form-label">Postcode</label>
                   </div>
                 </div>
                 <div class="col">
-                  <div class="form-floating mb-3">
+                  <div class="form-floating">
                     <input type="text" name="country" id="country-field" class="form-control form-control-lg shadow-none" placeholder="Enter country">
                     <label for="country-field" class="form-label">Country</label>
                   </div>
                 </div>
               </div>
               <% if (err || suc) { %>
-                <div class="mt-1 mb-2 text-center flash-message">
+                <div id="flash-message" class="mt-4 text-center flash-message">
                   <% if(err) { %>
                     <p class="p-3 flash-message__error"> <%= err %></p>
                   <% } %>
@@ -202,4 +202,5 @@
   <script src="/javascripts/profile-welcome-msg.js"></script>
 <% } %>
 <script src="/javascripts/update-button-state.js"></script>
+<script src="/javascripts/remove-flash-msg.js"></script>
 <%- include ("templates/footer.ejs") %>

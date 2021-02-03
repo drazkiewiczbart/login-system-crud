@@ -17,7 +17,7 @@
               <label for="password-field" class="form-label">Password</label>
             </div>
             <% if (err || suc) { %>
-              <div class="mt-1 mb-2 text-center flash-message">
+              <div id="flash-message" class="mt-4 text-center flash-message">
                 <% if (err) { %>
                   <p class="p-3 flash-message__error"> <%= err %></p>
                 <% } %>
@@ -43,4 +43,5 @@
     </div>
   </div>
 <script src="/javascripts/login-button-state.js"></script>
+<script src="/javascripts/remove-flash-msg.js"></script>
 <%- include ("templates/footer.ejs") %>
