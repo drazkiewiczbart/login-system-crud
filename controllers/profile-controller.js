@@ -3,32 +3,37 @@ const user = mongoose.model('users');
 const moment = require('moment');
 const { loggerErr } = require('../config/log4jsConfig');
 
+const createUserObject = (doc, dataFormat) => {
+  const userObject = {
+    firstName: doc.userDetails.firstName,
+    lastName: doc.userDetails.lastName,
+    emailAddress: doc.emailAddress,
+    userDetailsData: {
+      aboutMe: doc.userDetails.aboutMe,
+      address: doc.userDetails.address,
+      city: doc.userDetails.city,
+      postCode: doc.userDetails.postCode,
+      country: doc.userDetails.country,
+    },
+    accountDetailsData: {
+      createdAt: moment(doc.accountDetails.createdAt).format(dataFormat),
+      lastActivityAt: moment().format(dataFormat),
+    },
+  };
+  return userObject;
+};
+
 const userProfilePage = async (req, res) => {
   try {
     const dataFormat = 'YYYY-MM-DD HH:mm:ss';
     const doc = await user.findById(req.user).exec();
-    const userDataFromDB = {
-      firstName: doc.userDetails.firstName,
-      lastName: doc.userDetails.lastName,
-      emailAddress: doc.emailAddress,
-      userDetailsData: {
-        aboutMe: doc.userDetails.aboutMe,
-        address: doc.userDetails.address,
-        city: doc.userDetails.city,
-        postCode: doc.userDetails.postCode,
-        country: doc.userDetails.country,
-      },
-      accountDetailsData: {
-        createdAt: moment(doc.accountDetails.createdAt).format(dataFormat),
-        lastActivityAt: moment().format(dataFormat),
-      },
-    };
+    const userObject = createUserObject(doc, dataFormat);
     const flashSuccessMsg = req.flash('suc').toString();
     const flashErrorMsg = req.flash('err').toString();
     const flashWelcomeMsg = req.flash('wlc').toString();
 
     res.render('profile-view', {
-      userDataFromDB,
+      userObject,
       suc: flashSuccessMsg,
       err: flashErrorMsg,
       wlc: flashWelcomeMsg,

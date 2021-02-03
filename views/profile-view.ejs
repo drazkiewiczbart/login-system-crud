@@ -3,8 +3,8 @@
   <div class="container">
     <div class="row my-3 justify-content-center">
       <div class="col-12 text-center">
-        <h1 class="profile__main-data__name"><%= userDataFromDB.firstName %> <%= userDataFromDB.lastName %></h1>
-        <p class="profile__main-data__email"><%= userDataFromDB.emailAddress %></p>
+        <h1 class="profile__main-data__name"><%= userObject.firstName %> <%= userObject.lastName %></h1>
+        <p class="profile__main-data__email"><%= userObject.emailAddress %></p>
       </div>
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-5 p-sm-2 p-md-5">
         <div class="row mt-4 profile__section-title">
@@ -19,7 +19,7 @@
                 <p>About me:</p>
               </div>
               <div class="col-9">
-                <p><%= userDataFromDB.userDetailsData.aboutMe %></p>
+                <p><%= userObject.userDetailsData.aboutMe %></p>
               </div>
             </div>
             <div class="row">
@@ -27,7 +27,7 @@
                 <p>Address:</p>
               </div>
               <div class="col-9">
-                <p><%= userDataFromDB.userDetailsData.address %></p>
+                <p><%= userObject.userDetailsData.address %></p>
               </div>
             </div>
             <div class="row">
@@ -35,7 +35,7 @@
                 <p>City:</p>
               </div>
               <div class="col-9">
-                <p><%= userDataFromDB.userDetailsData.city %></p>
+                <p><%= userObject.userDetailsData.city %></p>
               </div>
             </div>
             <div class="row">
@@ -43,7 +43,7 @@
                 <p>Postcode:</p>
               </div>
               <div class="col-9">
-                <p><%= userDataFromDB.userDetailsData.postCode %></p>
+                <p><%= userObject.userDetailsData.postCode %></p>
               </div>
             </div>
             <div class="row">
@@ -51,7 +51,7 @@
                 <p>Country:</p>
               </div>
               <div class="col-9">
-                <p><%= userDataFromDB.userDetailsData.country %></p>
+                <p><%= userObject.userDetailsData.country %></p>
               </div>
             </div>
           </div>
@@ -64,10 +64,10 @@
         <div class="row">
           <div class="pt-3 px-3 pb-1">
             <div class="col">
-              <p>Account created: <%= userDataFromDB.accountDetailsData.createdAt %></p>
+              <p>Account created: <%= userObject.accountDetailsData.createdAt %></p>
             </div>
             <div class="col">
-              <p>Last activity at: <%= userDataFromDB.accountDetailsData.lastActivityAt %></p>
+              <p>Last activity at: <%= userObject.accountDetailsData.lastActivityAt %></p>
             </div>
           </div>
         </div>

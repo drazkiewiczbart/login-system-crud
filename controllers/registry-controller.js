@@ -18,23 +18,29 @@ const registryUserPage = (req, res) => {
   }
 };
 
+const createUserObject = (normalizeEmail, hashPassword, currentTime) => {
+  const newUser = new User({
+    emailAddress: normalizeEmail,
+    password: hashPassword,
+    userDetails: {
+      firstName: 'John',
+      lastName: 'Doe',
+    },
+    accountDetails: {
+      createdAt: currentTime,
+    },
+  });
+  return newUser;
+};
+
 const createNewUserAccount = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const normalizeEmail = email.toLowerCase();
     const hashPassword = await bcrypt.hash(password, 10);
     const currentTime = moment();
-    const newUser = new User({
-      emailAddress: normalizeEmail,
-      password: hashPassword,
-      userDetails: {
-        firstName: 'John',
-        lastName: 'Doe',
-      },
-      accountDetails: {
-        createdAt: currentTime,
-      },
-    });
+    const newUser = createUserObject(normalizeEmail, hashPassword, currentTime);
+
     await newUser.save();
     loggerInfo.info(`${normalizeEmail} created account.`);
     req.flash('wlc', email);
