@@ -1,5 +1,5 @@
 .DS_Store
 config/.env
 node_modules/
-.eslintrc.js
+.eslintrc
 config/logs/
