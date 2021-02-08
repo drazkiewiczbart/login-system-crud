@@ -1,22 +1,33 @@
-# Login-system-crud
-### [Preview project](https://bit.ly/3680hKa)
+# Login system with CRUD operations, portfolio project
+### [Preview project](https://bit.ly/3680hKa)  
+(Note: project need few second to load).
 
 ### About project  
-Education and portfolio project. Website allows creates users, login to system, updates data and deletes them.  
+Dynamic server-side website, allows creates users, login to system, updates data and deletes them. Education and portfolio project.   
 
 ### Core technologies  
-* Node.js  
-* Express.js  
-* MongoDB  
+* Node  
+* Express  
+* MongoDB   
+* EJS
+
+### Additional technologies  
+* Passport  
+* Flash  
+* Log4js
+* Bootstrap
 
 ### What I learned  
-* configure environment,  
-* divide the project into smaller parts,  
-* add and update a project in the repository,  
-* create routers, controllers and models,  
-* create login and registration system,  
-* create CRUD operations,  
-* database management,  
-* create website using template engine,  
-* launch project on VPS  
-* logs action into files
+* Configure environment  
+* Divide project into smaller parts  
+* Add and update project in the repository  
+* Create routers, controllers and models  
+* Create login and registration system  
+* Create CRUD operations on data  
+* Database management,  
+* Create website using template engine,  
+* Logs action into files  
+* Launch project on VPS  
+
+### License
+[MIT](LICENSE)
