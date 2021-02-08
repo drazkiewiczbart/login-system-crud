@@ -1,7 +1,7 @@
 # Login system with CRUD operations, portfolio project  
 
 ## About project  
-Education and portfolio project dynamic server-side website, allows creates users, login to system, updates data and deletes them. You can preview project [here](https://bit.ly/3680hKa) (Note: project need few second to load).  
+Education and portfolio project dynamic server-side website, allows creates users, login to system, updates data and deletes them. You can preview project [here](https://bit.ly/3680hKa). (Note: project need few second to load).  
 
 ## Core technologies  
 * Node  
