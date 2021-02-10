@@ -3,3 +3,4 @@ config/.env
 node_modules/
 .eslintrc
 config/logs/
+config/ecosystem.config.js
