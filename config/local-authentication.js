@@ -13,7 +13,9 @@ const passwordValidation = async (doc, password) => {
 module.exports = (passport, LocalStrategy, mongoose) => {
   const User = mongoose.model('users');
 
-  passport.serializeUser((doc, done) => { done(null, doc._id); });
+  passport.serializeUser((doc, done) => {
+    done(null, doc._id);
+  });
 
   passport.deserializeUser(async (_id, done) => {
     try {
@@ -24,20 +26,28 @@ module.exports = (passport, LocalStrategy, mongoose) => {
     }
   });
 
-  passport.use('local-authentication', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-  },
-  async (email, password, done) => {
-    try {
-      const normalizeEmail = email.toLowerCase();
-      const doc = await User.findOne({ emailAddress: normalizeEmail }).exec();
-      if (!doc) return done(null, false);
-      if (!(await passwordValidation(doc, password))) return done(null, false);
-      loggerInfo.info(`${normalizeEmail} login into account.`);
-      return done(null, doc);
-    } catch (err) {
-      return done(err);
-    }
-  }));
+  passport.use(
+    'local-authentication',
+    new LocalStrategy(
+      {
+        usernameField: 'email',
+        passwordField: 'password',
+      },
+      async (email, password, done) => {
+        try {
+          const normalizeEmail = email.toLowerCase();
+          const doc = await User.findOne({
+            emailAddress: normalizeEmail,
+          }).exec();
+          if (!doc) return done(null, false);
+          if (!(await passwordValidation(doc, password)))
+            return done(null, false);
+          loggerInfo.info(`${normalizeEmail} login into account.`);
+          return done(null, doc);
+        } catch (err) {
+          return done(err);
+        }
+      },
+    ),
+  );
 };

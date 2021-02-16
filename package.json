@@ -4,8 +4,8 @@
   "description": "Login system and crud operations on data",
   "main": "server.js",
   "scripts": {
-    "start": "node config/server.js",
-    "dev": "nodemon config/server.js"
+    "start": "node config/server",
+    "dev": "nodemon config/server"
   },
   "keywords": [
     "login",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.7"
   }

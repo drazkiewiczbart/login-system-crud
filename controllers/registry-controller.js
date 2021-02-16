@@ -1,18 +1,18 @@
-const mongoose = require("mongoose");
-const User = mongoose.model("users");
-const bcrypt = require("bcrypt");
-const moment = require("moment");
-const { isEmailBurner } = require("burner-email-providers");
-const { check, validationResult } = require("express-validator");
-const { loggerInfo, loggerErr } = require("../config/log4jsConfig");
+const mongoose = require('mongoose');
+const User = mongoose.model('users');
+const bcrypt = require('bcrypt');
+const moment = require('moment');
+const { isEmailBurner } = require('burner-email-providers');
+const { check, validationResult } = require('express-validator');
+const { loggerInfo } = require('../config/log4jsConfig');
 
 const registryUserPage = (req, res) => {
-  const flashErrorMsg = req.flash("err").toString();
+  const flashErrorMsg = req.flash('err').toString();
 
   if (req.user) {
-    res.redirect("/profile");
+    res.redirect('/profile');
   } else {
-    res.render("registry-view", {
+    res.render('registry-view', {
       err: flashErrorMsg,
     });
   }
@@ -23,8 +23,8 @@ const createUserObject = (normalizeEmail, hashPassword, currentTime) => {
     emailAddress: normalizeEmail,
     password: hashPassword,
     userDetails: {
-      firstName: "John",
-      lastName: "Doe",
+      firstName: 'John',
+      lastName: 'Doe',
     },
     accountDetails: {
       createdAt: currentTime,
@@ -43,67 +43,67 @@ const createNewUserAccount = async (req, res, next) => {
 
     await newUser.save();
     loggerInfo.info(`${normalizeEmail} created account.`);
-    req.flash("wlc", email);
+    req.flash('wlc', email);
     req.body.email = email;
     req.body.password = password;
     next();
   } catch (err) {
-    loggerErr.fatal(`Someone tried create account. (${err}).`);
+    loggerInfo.error(`Someone tried create account. (${err}).`);
     req.flash(
-      "err",
+      'err',
       "Sorry, we can't create your account. Please try again later.",
     );
-    res.redirect("/registry");
+    res.redirect('/registry');
   }
 };
 
 const dataFormValidator = [
-  check("email", "confirmEmail", "password", "confirmPassword")
+  check('email', 'confirmEmail', 'password', 'confirmPassword')
     .notEmpty()
     .withMessage(
-      "To create account you need insert email address, password and confirm this data.",
+      'To create account you need insert email address, password and confirm this data.',
     ),
 
-  check("email")
+  check('email')
     .notEmpty()
-    .withMessage("To create account you need first insert email address.")
+    .withMessage('To create account you need first insert email address.')
     .bail()
     .isEmail()
-    .withMessage("Incorrect email address.")
+    .withMessage('Incorrect email address.')
     .bail()
     .custom((email) => !isEmailBurner(email))
-    .withMessage("Untrusted provider, please use different email address."),
+    .withMessage('Untrusted provider, please use different email address.'),
 
-  check("confirmEmail")
+  check('confirmEmail')
     .notEmpty()
-    .withMessage("You need confirm email address.")
+    .withMessage('You need confirm email address.')
     .bail()
     .custom((confirmEmail, { req }) => confirmEmail === req.body.email)
-    .withMessage("Email address are not identical."),
+    .withMessage('Email address are not identical.'),
 
-  check("password")
+  check('password')
     .notEmpty()
-    .withMessage("To create account you need insert password.")
+    .withMessage('To create account you need insert password.')
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Password must contain ten or more characters."),
+    .withMessage('Password must contain ten or more characters.'),
 
-  check("confirmPassword")
+  check('confirmPassword')
     .notEmpty()
-    .withMessage("You need confirm password.")
+    .withMessage('You need confirm password.')
     .bail()
     .custom((confirmPassword, { req }) => confirmPassword === req.body.password)
-    .withMessage("Passwords are not identical."),
+    .withMessage('Passwords are not identical.'),
 
-  check("email").custom(async (email) => {
+  check('email').custom(async (email) => {
     try {
       const normalizeEmail = email.toLowerCase();
       const doc = await User.findOne({ emailAddress: normalizeEmail }).exec();
       if (doc) {
-        throw new Error("This email address is already used.");
+        throw new Error('This email address is already used.');
       }
     } catch (err) {
-      loggerErr.fatal(`Validation error. (${err}).`);
+      loggerInfo.error(`Validation error. (${err}).`);
       throw new Error(err);
     }
     return true;
@@ -115,8 +115,8 @@ const dataFormValidator = [
     if (!err.isEmpty()) {
       const errMsg = err.errors[0].msg;
 
-      req.flash("err", errMsg);
-      res.redirect("/registry");
+      req.flash('err', errMsg);
+      res.redirect('/registry');
     } else {
       next();
     }
