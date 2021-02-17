@@ -1,3 +1,4 @@
+const compression = require('compression');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -14,6 +15,7 @@ const { loggerInfo } = require('./log4jsConfig');
 
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
+app.use(compression());
 app.use(cookieParser());
 app.use(
   express.urlencoded({

@@ -23,6 +23,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "burner-email-providers": "^1.0.38",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
