@@ -72,6 +72,10 @@ mongoose.connection.on('reconnected', () => {
   loggerInfo.info('Database reconnected.');
 });
 
+mongoose.connection.on('close', () => {
+  loggerInfo.info('Database closed.');
+});
+
 mongoose.connection.on('error', (err) => {
   loggerInfo.fatal(`Database error. ${err}.`);
 });

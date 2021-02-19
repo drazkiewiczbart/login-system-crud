@@ -8,6 +8,7 @@ const dbConfig = {
   pass: process.env.DB_USER_PASSWORD,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  keepAliveInitialDelay: 300000,
 };
 const dbPath = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
