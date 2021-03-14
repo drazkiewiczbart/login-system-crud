@@ -14,6 +14,7 @@ const registryUserPage = (req, res) => {
   } else {
     res.render('registry-view', {
       err: flashErrorMsg,
+      suc: null,
     });
   }
 };

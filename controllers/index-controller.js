@@ -2,7 +2,8 @@ const { check, validationResult } = require('express-validator');
 
 const loginUserPage = (req, res) => {
   const flashSuccessMsg = req.flash('suc').toString();
-  const flashErrorMsg = req.flash('err').toString() || req.flash('error').toString();
+  const flashErrorMsg =
+    req.flash('err').toString() || req.flash('error').toString();
 
   if (req.user) {
     res.redirect('/profile');
@@ -17,7 +18,9 @@ const loginUserPage = (req, res) => {
 const dataFormValidator = [
   check('email', 'password')
     .notEmpty()
-    .withMessage('To login into account you need insert email address and password.'),
+    .withMessage(
+      'To login into account you need insert email address and password.',
+    ),
 
   check('email')
     .notEmpty()

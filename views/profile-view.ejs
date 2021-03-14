@@ -1,206 +1,326 @@
-<%- include ("templates/header.ejs") %>
-<div class="d-flex align-items-center min-vh-100">
-  <div class="container">
-    <div class="row my-3 justify-content-center">
-      <div class="col-12 text-center">
-        <h1 class="profile__main-data__name"><%= userObject.firstName %> <%= userObject.lastName %></h1>
-        <p class="profile__main-data__email"><%= userObject.emailAddress %></p>
-      </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-5 p-sm-2 p-md-5">
-        <div class="row mt-4 profile__section-title">
-          <div class="col">
-            <p class="profile__section-title--font">User details</p>
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Login system with CRUD</title>
+  </head>
+  <body>
+    <div id="background-img" class="background-img"></div>
+    <div id="container" class="container">
+      <div id="main-wrapper" class="main-wrapper">
+        <div id="header-wrapper" class="row header-wrapper">
+          <div class="col header-wrapper-content">
+            <h1 class="header-wrapper-content-title">
+              Login system application
+            </h1>
           </div>
         </div>
-        <div class="row">
-          <div class="d-grid gap-3 p-3 profile__user-details">
-            <div class="row">
-              <div class="col-3">
-                <p>About me:</p>
+        <div id="menu-wrapper" class="row menu-wrapper">
+          <div class="col menu-wrapper-content">
+            <p class="menu-wrapper-content-text">
+              <span
+                id="menu-wrapper-content-text-profile"
+                class="menu-wrapper-content-text--main menu-wrapper-content-text--activate"
+                >Profile</span
+              >
+              or
+              <span
+                id="menu-wrapper-content-text-actions"
+                class="menu-wrapper-content-text--main"
+                >Actions</span
+              >
+            </p>
+            <p
+              id="menu-wrapper-content-description"
+              class="menu-wrapper-content-description"
+            >
+              This is your profile data.
+            </p>
+          </div>
+        </div>
+        <div id="profile-wrapper" class="row wrapper">
+          <div class="col wrapper-content">
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">First and last name</p>
               </div>
-              <div class="col-9">
-                <p><%= userObject.userDetailsData.aboutMe %></p>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.firstName %> <%= userObject.lastName %>
+                </p>
               </div>
             </div>
-            <div class="row">
-              <div class="col-3">
-                <p>Address:</p>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">Email address</p>
               </div>
-              <div class="col-9">
-                <p><%= userObject.userDetailsData.address %></p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-3">
-                <p>City:</p>
-              </div>
-              <div class="col-9">
-                <p><%= userObject.userDetailsData.city %></p>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.emailAddress %>
+                </p>
               </div>
             </div>
-            <div class="row">
-              <div class="col-3">
-                <p>Postcode:</p>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">About me</p>
               </div>
-              <div class="col-9">
-                <p><%= userObject.userDetailsData.postCode %></p>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.userDetailsData.aboutMe %>
+                </p>
               </div>
             </div>
-            <div class="row">
-              <div class="col-3">
-                <p>Country:</p>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">Address</p>
               </div>
-              <div class="col-9">
-                <p><%= userObject.userDetailsData.country %></p>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.userDetailsData.address %>
+                </p>
               </div>
+            </div>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">City</p>
+              </div>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.userDetailsData.city %>
+                </p>
+              </div>
+            </div>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">Postcode</p>
+              </div>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.userDetailsData.postCode %>
+                </p>
+              </div>
+            </div>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">Country</p>
+              </div>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.userDetailsData.country %>
+                </p>
+              </div>
+            </div>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">Account created</p>
+              </div>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.accountDetailsData.createdAt %>
+                </p>
+              </div>
+            </div>
+            <div class="single-data">
+              <div class="single-data-key">
+                <p class="single-data-key-text">Last activity</p>
+              </div>
+              <div class="single-data-value">
+                <p class="single-data-value-text">
+                  <%= userObject.accountDetailsData.lastActivityAt %>
+                </p>
+              </div>
+            </div>
+            <div id="button-wrapper" class="button-single-action">
+              <a href="/logout"
+                ><button type="submit" class="btn btn-custom">Logout</button></a
+              >
             </div>
           </div>
         </div>
-        <div class="row mt-4 profile__section-title">
-          <div class="col">
-            <p class="profile__section-title--font">Account details</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="pt-3 px-3 pb-1">
-            <div class="col">
-              <p>Account created: <%= userObject.accountDetailsData.createdAt %></p>
-            </div>
-            <div class="col">
-              <p>Last activity at: <%= userObject.accountDetailsData.lastActivityAt %></p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="d-flex justify-content-center">
-              <a href="/logout"><button type="submit" id="btn-logout" class="btn">LOGOUT</button></a>
-            </div>
-          </div>
-          <div class="col">
-            <div class="d-flex justify-content-center">
-              <button type="submit" data-bs-toggle="modal" data-bs-target="#deleteModal" id="btn-delete" class="btn">DELETE</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 col-xxl-5 p-sm-2 p-md-5">
-        <div class="row mt-4 profile__section-title">
-          <div class="col">
-            <p class="profile__section-title--font">Update profile</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col p-3">
-            <form action="/update" method="POST">
-              <div class="row">
-                <div class="col">
-                  <div class="form-floating mb-3">
-                    <input type="text" name="firstName" id="first-name-field" class="form-control form-control-lg shadow-none" placeholder="Enter first name">
-                    <label for="first-name-field" class="form-label">First name</label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-floating mb-3">
-                    <input type="text" name="lastName" id="last-name-field" class="form-control form-control-lg shadow-none" placeholder="Enter last name">
-                    <label for="last-name-field" class="form-label">Last name</label>
-                  </div>
-                </div>
+        <div id="actions-wrapper" class="row wrapper wrapper--hide">
+          <div class="col wrapper-content">
+            <form class="content-form" action="/update" method="post">
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-user-tag"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="first-name"
+                  name="firstName"
+                  placeholder="First name"
+                  autofocus
+                />
               </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-floating mb-3">
-                    <textarea type="text" name="aboutMe" id="about-me-field" class="form-control form-control-lg shadow-none" placeholder="Enter information"></textarea>
-                    <label for="about-me-field" class="form-label">About me</label>
-                  </div>
-                </div>
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-user-tag"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="last-name"
+                  name="lastName"
+                  placeholder="Last name"
+                />
               </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-floating mb-3">
-                    <input type="text" name="address" id="address-field" class="form-control form-control-lg shadow-none" placeholder="Enter address">
-                    <label for="address-field" class="form-label">Address</label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-floating mb-3">
-                    <input type="text" name="city" id="city-field" class="form-control form-control-lg shadow-none" placeholder="Enter city">
-                    <label for="city-field" class="form-label">City</label>
-                  </div>
-                </div>
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-comment"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="about-me"
+                  name="aboutMe"
+                  placeholder="About me"
+                />
               </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-floating">
-                    <input type="text" name="postCode" id="postcode-field" class="form-control form-control-lg shadow-none" placeholder="Enter postcode">
-                    <label for="postcode-field" class="form-label">Postcode</label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-floating">
-                    <input type="text" name="country" id="country-field" class="form-control form-control-lg shadow-none" placeholder="Enter country">
-                    <label for="country-field" class="form-label">Country</label>
-                  </div>
-                </div>
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-address-card"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="address"
+                  name="address"
+                  placeholder="Address"
+                />
               </div>
-              <% if (err || suc) { %>
-                <div id="flash-message" class="mt-4 text-center flash-message">
-                  <% if(err) { %>
-                    <p class="p-3 flash-message__error"> <%= err %></p>
-                  <% } %>
-                  <% if (suc) { %>
-                    <p class="p-3 flash-message__success"> <%= suc %></p>
-                  <% } %>
-                </div>
-              <% } %>
-              <div class="d-flex justify-content-center mt-4">
-                <button type="submit" disabled="true" id="btn-update" class="btn">UPDATE</button>
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-city"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="city"
+                  name="city"
+                  placeholder="City"
+                />
+              </div>
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-mail-bulk"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="postcode"
+                  name="postCode"
+                  placeholder="Postcode"
+                />
+              </div>
+              <div class="input-group content-form-input-wrapper">
+                <span class="input-group-text">
+                  <i class="fas fa-flag"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control content-form-input"
+                  id="country"
+                  name="country"
+                  placeholder="Country"
+                />
+              </div>
+              <div class="content-form-send">
+                <button
+                  id="button"
+                  type="submit"
+                  class="btn btn-custom"
+                  disabled
+                >
+                  Update data
+                </button>
               </div>
             </form>
+            <div id="delete-account" class="delete-account">
+              <p class="delete-account-text">
+                If you want, you can delete account.
+                <a id="delete-account-link" class="delete-account-text--link"
+                  >Click here</a
+                >.
+              </p>
+            </div>
           </div>
         </div>
-      </div> 
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-10 col-xxl-10 mt-4">
-        <%- include ("templates/about-project.ejs") %>
-      </div>
-    </div>
-    <div class="modal" tabindex="-1" id="deleteModal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header justify-content-center">
-            <h5 class="modal-title">Delete account</h5>
+        <div id="delete-wrapper" class="row wrapper wrapper--hide">
+          <div class="col wrapper-content">
+            <p class="delete-account-text">
+              Do you really want to delete account?
+            </p>
+            <div class="delete-buttons">
+              <div class="button-single-action">
+                <a href="/delete"
+                  ><button type="submit" class="btn btn-custom btn-custom-warn">
+                    Delete account
+                  </button></a
+                >
+              </div>
+              <div class="button-single-action">
+                <button
+                  id="keep-account-button"
+                  type="submit"
+                  class="btn btn-custom"
+                >
+                  Back
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="modal-body text-center">
-            <p>Do you really want to delete your account?<br><span class="bold">This operation cannot be undone.</span></p>
-          </div>
-          <div class="d-flex justify-content-center modal-footer">
-            <button type="button" class="btn" data-bs-dismiss="modal">Back</button>
-            <a href="/delete"><button type="button" class="btn">Delete</button></a>
+        </div>
+        <div id="footer-wrapper" class="row footer-wrapper">
+          <div class="col footer-wrapper-content">
+            <p class="footer-wrapper-content-text">
+              Website allows creates user account, login to profile, updates
+              data and deletes them. More information about project on
+              <a
+                class="footer-link"
+                href="https://github.com/drazkiewiczbart/login-system-crud"
+                >GitHub</a
+              >.
+            </p>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal" tabindex="-1" id="welcomeModal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header justify-content-center">
-            <h5 class="modal-title">Hello <%= wlc %></h5>
-          </div>
-          <div class="modal-body text-center">
-            <p>This is your profile page. Here you can see your data and update them. You can also logout and delete account.<br><span class="bold">Thanks you for visit my project!</span></p>
-          </div>
-          <div class="d-flex justify-content-center modal-footer">
-            <button type="button" class="btn" data-bs-dismiss="modal">OK</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<% if (wlc) { %>
-  <script src="/javascripts/profile-welcome-msg.js"></script>
-<% } %>
-<script src="/javascripts/update-button-state.js"></script>
-<script src="/javascripts/remove-flash-msg.js"></script>
-<%- include ("templates/footer.ejs") %>
+    <script src="/javascripts/global-utilities.js"></script>
+    <script src="/javascripts/profile-utilities.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <% if (err) { %>
+    <script>
+      messageAlert('<%= err %>');
+      errorTag();
+      dispalyAlertMessage();
+    </script>
+    <% } %>
+    <!-- - -->
+    <% if (suc) { %>
+    <script>
+      messageAlert('<%= suc %>');
+      successTag();
+      dispalyAlertMessage();
+    </script>
+    <% } %>
+  </body>
+</html>

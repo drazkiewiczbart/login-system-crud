@@ -1,3 +1,0 @@
-$(() => {
-  $("#welcomeModal").modal('show');
-});

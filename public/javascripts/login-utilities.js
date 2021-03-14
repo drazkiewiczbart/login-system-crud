@@ -1,10 +1,11 @@
+/*
+ ** Disable/Enable login button
+ */
 $(() => {
-  const email = $('#email-field');
-  const password = $('#password-field');
-  const allInputFields = [email, password];
-  const btn = $('#btn');
-
-  $.each(allInputFields, (_, value) => {
+  const email = $('#login-email');
+  const password = $('#login-password');
+  const btn = $('#button');
+  $.each([email, password], (_, value) => {
     value.keyup(() => {
       if (email.val() && password.val()) {
         btn.attr('disabled', false);
