@@ -1,5 +1,8 @@
-# Login system with CRUD operations, portfolio project   
-Education and portfolio project dynamic server-side website, allows creates users, login to system, updates data and deletes them. You can preview project [here](https://bit.ly/3680hKa). (Note: project need few second to load).  
+# Login system with CRUD operations
+Dynamic server-side Node.js login system. Education and portfolio first project.
+
+## General information    
+Website allows creates user account, login to profile, updates data and deletes them. You can preview project [here](http://lscrud.toadres.pl).  
 
 ## How to use
 1. Clone repository  
@@ -10,8 +13,8 @@ Education and portfolio project dynamic server-side website, allows creates user
 6. From project main directory in terminal use 'npm run dev" command
 
 ## Core technologies  
-* Node  
-* Express  
+* Node.js  
+* Express.js  
 * MongoDB   
 * EJS
 
@@ -32,6 +35,10 @@ Education and portfolio project dynamic server-side website, allows creates user
 * Create website using template engine  
 * Logs action into files  
 * Launch project on VPS  
+
+## To Do
+[ ] Add recovery password function  
+[ ] Confirm account with email message  
 
 ## License
 [MIT](LICENSE)
