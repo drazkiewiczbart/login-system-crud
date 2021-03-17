@@ -1,10 +1,10 @@
 # Login system with CRUD operations
-Dynamic server-side Node.js login system. Education and portfolio first project.
+Dynamic server-side login system website. Education and portfolio project.
 
-## General information    
-Website allows creates user account, login to profile, updates data and deletes them. You can preview project [here](http://lscrud.toadres.pl).  
+## General information :speaker:    
+Website allows: create user account, login to profile, update and delete data. You can preview project [here](http://lscrud.toadres.pl).  
 
-## How to use
+## How to use :speech_balloon:  
 1. Clone repository  
 2. Install dependencies  
 3. Create .env file into config directory  
@@ -12,19 +12,19 @@ Website allows creates user account, login to profile, updates data and deletes 
 5. Start database server  
 6. From project main directory in terminal use 'npm run dev" command
 
-## Core technologies  
+## Core technologies :rocket:  
 * Node.js  
 * Express.js  
 * MongoDB   
 * EJS
 
-## Additional technologies  
+## Additional technologies :link:  
 * Passport  
 * Flash  
 * Log4js
 * Bootstrap
 
-## What I learned  
+## What I learned :mortar_board:  
 * Configure environment  
 * Divide project into smaller parts  
 * Add and update project in the repository  
@@ -33,12 +33,12 @@ Website allows creates user account, login to profile, updates data and deletes 
 * Create CRUD operations on data  
 * Database management  
 * Create website using template engine  
-* Logs action into files  
+* Log action into files  
 * Launch project on VPS  
 
-## To Do
-[ ] Add recovery password function  
-[ ] Confirm account with email message  
+## To Do :bulb:  
+- [ ] Add recovery password function  
+- [ ] Confirm account with email message  
 
-## License
+## License :closed_book:  
 [MIT](LICENSE)
