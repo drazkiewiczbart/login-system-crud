@@ -1,21 +1,10 @@
 const { check, validationResult } = require('express-validator');
 
-const loginUserPage = (req, res) => {
-  const flashSuccessMsg = req.flash('suc').toString();
-  const flashErrorMsg =
-    req.flash('err').toString() || req.flash('error').toString();
+/*
+** Login input data validator
+*/
 
-  if (req.user) {
-    res.redirect('/profile');
-  } else {
-    res.render('index-view', {
-      suc: flashSuccessMsg,
-      err: flashErrorMsg,
-    });
-  }
-};
-
-const dataFormValidator = [
+const loginInputDataValidator = [
   check('email', 'password')
     .notEmpty()
     .withMessage(
@@ -38,7 +27,6 @@ const dataFormValidator = [
 
     if (!err.isEmpty()) {
       const errMsg = err.errors[0].msg;
-
       req.flash('err', errMsg);
       res.redirect('/');
     } else {
@@ -48,6 +36,5 @@ const dataFormValidator = [
 ];
 
 module.exports = {
-  loginUserPage,
-  dataFormValidator,
+  loginInputDataValidator,
 };

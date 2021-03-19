@@ -1,7 +1,4 @@
 .DS_Store
-config/.env
+.env
 node_modules/
-.eslintrc
-config/logs/
-config/ecosystem.config.js
-.prettierrc
+logs/

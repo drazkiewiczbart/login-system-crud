@@ -1,11 +1,13 @@
 /*
  ** Switch between profile and actions
  */
+
 $(
   '#menu-wrapper-content-text-profile, #menu-wrapper-content-text-actions',
 ).click(function () {
   let target;
   let noTarget;
+
   if ($(this).is('#menu-wrapper-content-text-profile')) {
     target = '#menu-wrapper-content-text-profile';
     noTarget = '#menu-wrapper-content-text-actions';
@@ -30,8 +32,9 @@ $(
 });
 
 /*
- ** Disable/Enable update button
+ ** Disable or enable update button
  */
+
 $(() => {
   const firstName = $('#first-name');
   const lastName = $('#last-name');
@@ -46,13 +49,7 @@ $(() => {
     (_, value) => {
       value.keyup(() => {
         if (
-          firstName.val() ||
-          lastName.val() ||
-          aboutMe.val() ||
-          address.val() ||
-          city.val() ||
-          postCode.val() ||
-          country.val()
+          firstName.val() || lastName.val() || aboutMe.val() || address.val() ||city.val() || postCode.val() || country.val()
         ) {
           btn.attr('disabled', false);
         } else {
@@ -66,6 +63,7 @@ $(() => {
 /*
  ** Show delete option
  */
+
 $('#delete-account-link').click(() => {
   $('#actions-wrapper').toggleClass('wrapper--hide');
   $('#delete-wrapper').toggleClass('wrapper--hide');
@@ -75,6 +73,7 @@ $('#delete-account-link').click(() => {
 /*
  ** Hide delete option
  */
+
 $('#keep-account-button').click(() => {
   $('#delete-wrapper').toggleClass('wrapper--hide');
   $('#actions-wrapper').toggleClass('wrapper--hide');

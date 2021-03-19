@@ -1,6 +1,7 @@
 /*
- ** Disable/Enable registry button
+ ** Disable or enable registry button
  */
+
 $(() => {
   const email = $('#registry-email');
   const confirmEmail = $('#registry-confirm-email');
@@ -10,10 +11,7 @@ $(() => {
   $.each([email, confirmEmail, password, confirmPassword], (_, value) => {
     value.keyup(() => {
       if (
-        email.val() &&
-        confirmEmail.val() &&
-        password.val() &&
-        confirmPassword.val()
+        email.val() && confirmEmail.val() && password.val() && confirmPassword.val()
       ) {
         btn.attr('disabled', false);
       } else {

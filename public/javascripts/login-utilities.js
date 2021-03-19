@@ -1,6 +1,7 @@
 /*
- ** Disable/Enable login button
+ ** Disable or enable login button
  */
+
 $(() => {
   const email = $('#login-email');
   const password = $('#login-password');

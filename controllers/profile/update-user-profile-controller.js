@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const user = mongoose.model('users');
-const { loggerInfo } = require('../config/log4jsConfig');
+const { logger } = require('../../libs/log4js/config');
+
+/*
+** Get method
+*/
 
 const updateUserProfile = async (req, res) => {
   try {
@@ -19,12 +23,10 @@ const updateUserProfile = async (req, res) => {
       const [key, value] = property;
       if (value) doc.userDetails[key] = value;
     });
-
     await doc.save();
-    loggerInfo.info(`${doc.emailAddress} updated data in account.`);
     req.flash('suc', 'Update data successful.');
   } catch (err) {
-    loggerInfo.error(`Someone tried update data in account. (${err}).`);
+    logger.error(`Problem occured when someone tried to update profile account. ${err}`);
     req.flash(
       'err',
       "Sorry, we can't update your account. Please try again later.",

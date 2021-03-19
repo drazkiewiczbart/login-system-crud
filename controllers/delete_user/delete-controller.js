@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 const user = mongoose.model('users');
-const { loggerInfo } = require('../config/log4jsConfig');
+const { logger } = require('../../libs/log4js/config');
 
-const deleteUser = async (req, res) => {
+/*
+** Get method
+*/
+const deleteUserAccount = async (req, res) => {
   try {
     await user.deleteOne({ _id: req.user }).exec();
-    loggerInfo.info('Someone delete account.');
     req.logout();
     req.flash('suc', 'Your account was deleted successful.');
     res.redirect('/');
   } catch (err) {
-    loggerInfo.error(`Someone tried delete account. (${err}).`);
+    logger.error(`Problem occured when someone tried to delete account. ${err}`);
     req.flash(
       'err',
       "Sorry, we can't delete your account. Please try again later.",
@@ -20,5 +22,5 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  deleteUser,
+  deleteUserAccount,
 };

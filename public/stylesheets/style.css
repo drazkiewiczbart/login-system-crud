@@ -1,6 +1,7 @@
 /*
 ** Global
 */
+
 html {
   font-size: 10px;
 }
@@ -25,6 +26,7 @@ body {
 /*
 ** Bootstrap overwrite
 */
+
 .container {
   min-height: 100vh;
   display: flex;
@@ -49,6 +51,7 @@ body {
 /*
 ** Alerts
 */
+
 .alert-text {
   display: none;
   width: 100%;
@@ -77,6 +80,7 @@ body {
 /*
 ** Main wrapper
 */
+
 .main-wrapper {
   height: 100%;
   background-color: rgb(255, 255, 255);
@@ -87,6 +91,7 @@ body {
 /*
 ** Header wrapper
 */
+
 .header-wrapper {
   justify-content: center;
   padding: 0;
@@ -109,6 +114,7 @@ body {
 /*
 ** Menu wrapper
 */
+
 .menu-wrapper {
   justify-content: center;
   padding: 3.5rem 0 0 0;
@@ -146,6 +152,7 @@ body {
 /*
 ** Main content
 */
+
 .wrapper {
   flex-direction: column;
   justify-content: center;
@@ -221,7 +228,6 @@ body {
   display: flex;
   justify-content: space-around;
   flex-direction: row-reverse;
-  /* padding: 0 3rem; */
 }
 
 .btn-custom-warn {
@@ -290,6 +296,7 @@ body {
 /*
 ** Footer wrapper
 */
+
 .footer-wrapper {
   justify-content: center;
   padding: 3.5rem 0 0 0;

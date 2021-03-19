@@ -1,64 +1,10 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
-const bcrypt = require('bcrypt');
-const moment = require('moment');
-const { isEmailBurner } = require('burner-email-providers');
 const { check, validationResult } = require('express-validator');
-const { loggerInfo } = require('../config/log4jsConfig');
+const { isEmailBurner } = require('burner-email-providers');
+const { logger } = require('../../libs/log4js/config');
 
-const registryUserPage = (req, res) => {
-  const flashErrorMsg = req.flash('err').toString();
-
-  if (req.user) {
-    res.redirect('/profile');
-  } else {
-    res.render('registry-view', {
-      err: flashErrorMsg,
-      suc: null,
-    });
-  }
-};
-
-const createUserObject = (normalizeEmail, hashPassword, currentTime) => {
-  const newUser = new User({
-    emailAddress: normalizeEmail,
-    password: hashPassword,
-    userDetails: {
-      firstName: 'John',
-      lastName: 'Doe',
-    },
-    accountDetails: {
-      createdAt: currentTime,
-    },
-  });
-  return newUser;
-};
-
-const createNewUserAccount = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    const normalizeEmail = email.toLowerCase();
-    const hashPassword = await bcrypt.hash(password, 10);
-    const currentTime = moment();
-    const newUser = createUserObject(normalizeEmail, hashPassword, currentTime);
-
-    await newUser.save();
-    loggerInfo.info(`${normalizeEmail} created account.`);
-    req.flash('wlc', email);
-    req.body.email = email;
-    req.body.password = password;
-    next();
-  } catch (err) {
-    loggerInfo.error(`Someone tried create account. (${err}).`);
-    req.flash(
-      'err',
-      "Sorry, we can't create your account. Please try again later.",
-    );
-    res.redirect('/registry');
-  }
-};
-
-const dataFormValidator = [
+const registryInputDataValidator = [
   check('email', 'confirmEmail', 'password', 'confirmPassword')
     .notEmpty()
     .withMessage(
@@ -104,7 +50,7 @@ const dataFormValidator = [
         throw new Error('This email address is already used.');
       }
     } catch (err) {
-      loggerInfo.error(`Validation error. (${err}).`);
+      logger.error(`Registry validation database error. ${err}`);
       throw new Error(err);
     }
     return true;
@@ -115,7 +61,6 @@ const dataFormValidator = [
 
     if (!err.isEmpty()) {
       const errMsg = err.errors[0].msg;
-
       req.flash('err', errMsg);
       res.redirect('/registry');
     } else {
@@ -125,7 +70,5 @@ const dataFormValidator = [
 ];
 
 module.exports = {
-  registryUserPage,
-  createNewUserAccount,
-  dataFormValidator,
+  registryInputDataValidator,
 };

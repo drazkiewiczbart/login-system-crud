@@ -1,11 +1,11 @@
 /*
  ** Show error or success message
  */
+
 const messageAlert = (message) => {
   const response = `
   <p id="alert-text" class="alert-text">${message}</p>
   `;
-
   $(response).insertBefore('#button-wrapper');
 };
 
