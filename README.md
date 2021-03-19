@@ -7,8 +7,8 @@ Website allows: create user account, login to profile, update and delete data. Y
 ## How to use :speech_balloon:  
 1. Clone repository  
 2. Install dependencies  
-3. Create .env file into config directory  
-4. Into .env file add PORT, HOST, DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_USER_PASSWORD, SESSION_SECRET, LOGS_DIR constans and initialize them  
+3. Create .env file into main directory  
+4. Into .env file add PORT, HOST, DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_USER_PASSWORD, SESSION_SECRET constans and initialize them  
 5. Start database server  
 6. From project main directory in terminal use 'npm run dev" command
 
