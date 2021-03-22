@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema(
     },
     accountDetails: {
       createdAt: { type: Date, default: null, required: true },
-      lastActivityAt: { type: Date, default: null },
     },
   },
   {
