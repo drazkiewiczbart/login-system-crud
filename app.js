@@ -11,11 +11,46 @@ const compression = require('compression');
 const path = require('path');
 const mongoose = require('mongoose');
 require('./models/user-model');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 require('./libs/passport/local-authentication');
 require('dotenv').config();
-const { sessionConfig } = require('./libs/session/config');
 const { logger } = require('./libs/log4js/config');
+
+/*
+** Start server listening
+*/
+
+try {
+  app.listen(process.env.PORT, process.env.HOST);
+  logger.info('Server listening.');
+} catch (err) {
+  logger.fatal(`Start server problem. ${err}`);
+  process.exit(1);
+}
+
+/*
+** Connection to database
+*/
+
+const dbPath = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+const dbConfig = {
+  user: process.env.DB_USER,
+  pass: process.env.DB_USER_PASSWORD,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  keepAlive: true,
+  keepAliveInitialDelay: 300000,
+};
+const databaseConnection = mongoose.connect(dbPath, dbConfig)
+  .then((connect) => {
+    logger.info('Database connected.');
+    return connect.connection.getClient();
+  })
+  .catch((err) => {
+    logger.fatal(`Connect database problem. ${err}`);
+    process.exit(1);
+  });
 
 /*
 ** App set / use
@@ -26,7 +61,19 @@ app.set('view engine', 'ejs');
 app.use(compression());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.use(session(sessionConfig));
+app.use(session({
+  name: 'sessions',
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: false,
+  resave: false,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    path: '/',
+    maxAge: 1000 * 60 * 60 * 24 * 1,
+  },
+  store: MongoStore.create({ client: databaseConnection }),
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -74,35 +121,3 @@ app.get('/logout', isUserLogin, logoutUser);
 app.get('/*', (_, res) => {
   res.redirect('/');
 });
-
-/*
-** Connect database and start server
-*/
-
-(async () => {
-  const dbPath = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
-  const dbConfig = {
-    user: process.env.DB_USER,
-    pass: process.env.DB_USER_PASSWORD,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    keepAlive: true,
-    keepAliveInitialDelay: 300000,
-  };
-
-  try {
-    await mongoose.connect(dbPath, dbConfig);
-    logger.info('Database connected.');
-  } catch (err) {
-    logger.fatal(`Connect database problem. ${err}`);
-    process.exit(1);
-  }
-
-  try {
-    app.listen(process.env.PORT, process.env.HOST);
-    logger.info('Server listening.');
-  } catch (err) {
-    logger.fatal(`Start server problem. ${err}`);
-    process.exit(1);
-  }
-})();
