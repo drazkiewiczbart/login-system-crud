@@ -26,7 +26,6 @@ try {
   logger.info('Server listening.');
 } catch (err) {
   logger.fatal(`Start server problem. ${err}`);
-  process.exit(1);
 }
 
 /*
@@ -49,7 +48,6 @@ const databaseConnection = mongoose.connect(dbPath, dbConfig)
   })
   .catch((err) => {
     logger.fatal(`Connect database problem. ${err}`);
-    process.exit(1);
   });
 
 /*
@@ -118,6 +116,6 @@ app.get('/delete', isUserLogin, deleteUserAccount);
 
 app.get('/logout', isUserLogin, logoutUser);
 
-app.get('/*', (_, res) => {
+app.all('/*', (_, res) => {
   res.redirect('/');
 });
