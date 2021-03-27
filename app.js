@@ -32,16 +32,13 @@ try {
 ** Connection to database
 */
 
-const dbPath = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 const dbConfig = {
-  user: process.env.DB_USER,
-  pass: process.env.DB_USER_PASSWORD,
   useNewUrlParser: true,
   useUnifiedTopology: true,
   keepAlive: true,
   keepAliveInitialDelay: 300000,
 };
-const databaseConnection = mongoose.connect(dbPath, dbConfig)
+const databaseConnection = mongoose.connect(process.env.DB_PATH, dbConfig)
   .then((connect) => {
     logger.info('Database connected.');
     return connect.connection.getClient();
