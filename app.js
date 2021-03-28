@@ -26,6 +26,7 @@ try {
   logger.info('Server listening.');
 } catch (err) {
   logger.fatal(`Start server problem. ${err}`);
+  process.exit();
 }
 
 /*
@@ -45,6 +46,7 @@ const databaseConnection = mongoose.connect(process.env.DB_PATH, dbConfig)
   })
   .catch((err) => {
     logger.fatal(`Connect database problem. ${err}`);
+    process.exit();
   });
 
 /*
