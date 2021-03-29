@@ -2,7 +2,7 @@
 Dynamic server-side login system website. Education and portfolio project.
 
 ## General information :speaker:    
-Website allows: create user account, login to profile, update and delete data. You can preview project [here](http://lscrud.toadres.pl).  
+Website allows: create user account, login to profile, update and delete data. You can preview project [here](http://lscrud.drazkiewiczbart.com).  
 
 ## How to use :speech_balloon:  
 1. Clone repository  
