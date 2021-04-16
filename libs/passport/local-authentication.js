@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('users');
+const User = mongoose.model('lscrudusers');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const { passwordValidation } = require('./password-validation');

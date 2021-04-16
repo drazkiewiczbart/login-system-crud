@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('users');
+const User = mongoose.model('lscrudusers');
 const { check, validationResult } = require('express-validator');
 const { isEmailBurner } = require('burner-email-providers');
 const { logger } = require('../../libs/log4js/config');

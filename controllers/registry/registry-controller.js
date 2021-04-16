@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('users');
+const User = mongoose.model('lscrudusers');
 const bcrypt = require('bcrypt');
-const moment = require('moment');
+const momentTimezone = require('moment-timezone');
 const { logger } = require('../../libs/log4js/config');
 
 /*
@@ -45,7 +45,7 @@ const createNewUserAccount = async (req, res, next) => {
     const { email, password } = req.body;
     const normalizeEmail = email.toLowerCase();
     const hashPassword = await bcrypt.hash(password, 10);
-    const currentTime = moment();
+    const currentTime = momentTimezone().tz('Europe/Berlin');
     const newUser = createUserObject(normalizeEmail, hashPassword, currentTime);
     await newUser.save();
     req.body.email = email;

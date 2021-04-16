@@ -69,7 +69,7 @@ app.use(session({
     path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 1,
   },
-  store: MongoStore.create({ client: databaseConnection }),
+  store: MongoStore.create({ client: databaseConnection, collectionName: 'lscrudsessions' }),
 }));
 app.use(flash());
 app.use(passport.initialize());

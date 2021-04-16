@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const user = mongoose.model('users');
-const moment = require('moment');
+const user = mongoose.model('lscrudusers');
+const momentTimezone = require('moment-timezone');
 const { logger } = require('../../libs/log4js/config');
 
 const createUserObject = (doc, dataFormat) => {
@@ -16,8 +16,8 @@ const createUserObject = (doc, dataFormat) => {
       country: doc.userDetails.country,
     },
     accountDetailsData: {
-      createdAt: moment(doc.accountDetails.createdAt).format(dataFormat),
-      lastActivityAt: moment().format(dataFormat),
+      createdAt: momentTimezone(doc.accountDetails.createdAt).tz('Europe/Berlin').format(dataFormat),
+      lastActivityAt: momentTimezone().tz('Europe/Berlin').format(dataFormat),
     },
   };
   return userObject;

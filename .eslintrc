@@ -14,6 +14,7 @@
   },
   "rules": {
     "no-console": "warn",
-    "import/newline-after-import": "off"
+    "import/newline-after-import": "off",
+    "no-underscore-dangle": "off"
   }
 }
