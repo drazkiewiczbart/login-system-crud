@@ -34,6 +34,11 @@ try {
 */
 
 const dbConfig = {
+  user: process.env.DB_USER,
+  pass: process.env.DB_USER_PASSWORD,
+  auth: {
+    authSource: process.env.DB_USER_AUTH,
+  },
   useNewUrlParser: true,
   useUnifiedTopology: true,
   keepAlive: true,

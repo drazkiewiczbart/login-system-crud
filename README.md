@@ -8,7 +8,7 @@ Website allows: create user account, login to profile, update and delete data. Y
 1. Clone repository  
 2. Install dependencies  
 3. Create .env file into main directory  
-4. Into .env file add PORT, HOST, DB_PATH, SESSION_SECRET constans and initialize them  
+4. Into .env file add PORT, HOST, DB_PATH, DB_USER, DB_USER_PASSWORD, DB_USER_AUTH, SESSION_SECRET constans and initialize them  
 5. Start database server  
 6. From project main directory in terminal use 'npm run dev" command
 
