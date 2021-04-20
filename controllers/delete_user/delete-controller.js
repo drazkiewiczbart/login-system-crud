@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const user = mongoose.model('lscrudusers');
+const user = mongoose.model('users');
 const { logger } = require('../../libs/log4js/config');
 
 /*

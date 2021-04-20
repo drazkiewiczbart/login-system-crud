@@ -22,4 +22,4 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('lscrudusers', userSchema);
+module.exports = mongoose.model('users', userSchema);

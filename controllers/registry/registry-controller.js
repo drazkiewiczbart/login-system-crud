@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('lscrudusers');
+const User = mongoose.model('users');
 const bcrypt = require('bcrypt');
 const momentTimezone = require('moment-timezone');
 const { logger } = require('../../libs/log4js/config');
